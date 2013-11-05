@@ -11701,10 +11701,8 @@ SM-340 3.6 V</description>
 <sheets>
 <sheet>
 <plain>
-<text x="160.02" y="91.44" size="2.54" layer="95">Filters</text>
 <text x="180.34" y="27.94" size="2.54" layer="95">Microprocessor</text>
 <text x="71.12" y="68.58" size="2.54" layer="95">Power Regulation</text>
-<wire x1="66.04" y1="-106.68" x2="236.22" y2="-106.68" width="0.1524" layer="94"/>
 <text x="223.52" y="-93.98" size="1.778" layer="97">1</text>
 </plain>
 <instances>
