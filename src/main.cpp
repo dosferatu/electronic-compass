@@ -11,22 +11,28 @@
 // Register definitions.
 //#define INT_TWI 0x0030	// 2-wire Serial Interface Interrupt
 
+#include <avr/interrupt.h>
+#include <avr/io.h>
 #include "TWI_Master.h"
 
 //11100101
-//unsigned char twcr = 0xE5;
+unsigned char twcr = 0xE5;
+unsigned char TWI_ACCEL_SLAVE_ADDR = 0;
+unsigned char TW_MAG_SLAVE_ADDR = 0;
 
 int main()
 {
 		TWI_Master_Initialise();
+		sei();	// Enable TWI interrupts
 
-		//while(true)
-		//{
+		while(true)
+		{
 				// Tell sensor we want a reading
 				// wait for interrupt from sensor
 				// read in sensor data
 				// calculate heading
 				// display to lcd
-		//}
+				TWI_Start_Transceiver();
+		}
 		return 0;
 }
