@@ -3500,7 +3500,7 @@ design rules under a new name.</description>
 <element name="LED1" library="led" package="CHIPLED_0805" value="1" x="44.45" y="46.355"/>
 <element name="Q1" library="transistor-fet" package="TO263" value="SPB80P06P" x="35.56" y="52.705"/>
 <element name="Q2" library="transistor-fet" package="TO263" value="SPB80P06P" x="25.4" y="55.245"/>
-<element name="C12" library="rcl" package="C0805" value="1uF" x="18.415" y="31.115"/>
+<element name="C12" library="rcl" package="C0805" value="10uF" x="18.415" y="31.115"/>
 <element name="G1" library="battery" package="SL-340/SM3.6V" value="SL340SM" x="85.09" y="30.48"/>
 <element name="C4" library="rcl" package="C0805" value="1uF" x="42.545" y="39.37"/>
 <element name="TP1" library="testpad" package="TP06R" value="TPTP06R" x="65.405" y="41.275">
@@ -3595,6 +3595,15 @@ design rules under a new name.</description>
 <element name="C2" library="rcl" package="C0805" value="10nF" x="-12.7" y="-90.17"/>
 <element name="U$1" library="LTC4067" package="DFN-12" value="LTC4067" x="-17.78" y="-89.535"/>
 <element name="C3" library="rcl" package="C0805" value="0.1uF" x="-19.05" y="-96.52"/>
+<element name="TP26" library="testpad" package="TP06R" value="TPTP06R" x="-20.32" y="-102.235">
+<attribute name="TP_SIGNAL_NAME" value="" x="-20.32" y="-102.235" size="1.778" layer="27" display="off"/>
+</element>
+<element name="TP27" library="testpad" package="TP06R" value="TPTP06R" x="-20.32" y="-105.41">
+<attribute name="TP_SIGNAL_NAME" value="" x="-20.32" y="-105.41" size="1.778" layer="27" display="off"/>
+</element>
+<element name="TP28" library="testpad" package="TP06R" value="TPTP06R" x="-20.32" y="-108.585">
+<attribute name="TP_SIGNAL_NAME" value="" x="-20.32" y="-108.585" size="1.778" layer="27" display="off"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
@@ -3785,11 +3794,6 @@ design rules under a new name.</description>
 <contactref element="JP3" pad="4"/>
 <wire x1="9.525" y1="-15.24" x2="55.92" y2="28.35" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$39">
-<contactref element="U1" pad="22"/>
-<contactref element="Q3" pad="1"/>
-<wire x1="0.635" y1="-30.73" x2="60.92" y2="28.35" width="0" layer="19" extent="1-1"/>
-</signal>
 <signal name="N$27">
 <contactref element="U1" pad="30"/>
 <contactref element="Q4" pad="1"/>
@@ -3964,6 +3968,26 @@ design rules under a new name.</description>
 <contactref element="R5" pad="2"/>
 <contactref element="U$1" pad="P2"/>
 <wire x1="39.05" y1="47.625" x2="-18.53" y2="-90.885" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$37">
+<contactref element="U1" pad="8"/>
+<contactref element="Q3" pad="1"/>
+<wire x1="0.635" y1="-30.73" x2="55.02" y2="30.75" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$38">
+<contactref element="U1" pad="32"/>
+<contactref element="TP26" pad="TP"/>
+<wire x1="61.82" y1="33.75" x2="-20.32" y2="-102.235" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$39">
+<contactref element="U1" pad="22"/>
+<contactref element="TP27" pad="TP"/>
+<wire x1="60.92" y1="28.35" x2="-20.32" y2="-105.41" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$40">
+<contactref element="U1" pad="11"/>
+<contactref element="TP28" pad="TP"/>
+<wire x1="55.02" y1="29.25" x2="-20.32" y2="-108.585" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>
