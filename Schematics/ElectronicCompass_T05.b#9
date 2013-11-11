@@ -102,10 +102,10 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="56.82" y2="0" width="0" layer="20"/>
-<wire x1="56.82" y1="0" x2="56.82" y2="57.14" width="0" layer="20"/>
-<wire x1="56.82" y1="57.14" x2="0" y2="57.14" width="0" layer="20"/>
-<wire x1="0" y1="57.14" x2="0" y2="0" width="0" layer="20"/>
+<wire x1="0" y1="0" x2="101.27" y2="0" width="0" layer="20"/>
+<wire x1="101.27" y1="0" x2="101.27" y2="80.635" width="0" layer="20"/>
+<wire x1="101.27" y1="80.635" x2="0" y2="81.27" width="0" layer="20"/>
+<wire x1="0" y1="81.27" x2="0" y2="0" width="0" layer="20"/>
 </plain>
 <libraries>
 <library name="SparkFun">
