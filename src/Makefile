@@ -83,7 +83,7 @@ SRC =
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
-CPPSRC = $(TARGET).cpp TWI_Master.cpp
+CPPSRC = $(TARGET).cpp TWI_Master.cpp LSM303.cpp
 
 
 # List Assembler source files here.
@@ -99,7 +99,7 @@ ASRC =
 # Optimization level, can be [0, 1, 2, 3, s]. 
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = s
+OPT = 0
 
 
 # Debugging format.
@@ -308,8 +308,8 @@ AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
 DEBUG_MFREQ = $(F_CPU)
 
 # Set the DEBUG_UI to either gdb or insight.
-# DEBUG_UI = gdb
-DEBUG_UI = insight
+DEBUG_UI = gdb
+# DEBUG_UI = insight
 
 # Set the debugging back-end to either avarice, simulavr.
 DEBUG_BACKEND = avarice
@@ -319,7 +319,7 @@ DEBUG_BACKEND = avarice
 GDBINIT_FILE = __avr_gdbinit
 
 # When using avarice settings for the JTAG
-JTAG_DEV = /dev/com1
+JTAG_DEV = /dev/ttyACM0
 
 # Debugging port used to communicate between GDB / avarice / simulavr.
 DEBUG_PORT = 4242
@@ -466,15 +466,15 @@ endif
 debug: gdb-config $(TARGET).elf
 ifeq ($(DEBUG_BACKEND), avarice)
 	@echo Starting AVaRICE - Press enter when "waiting to connect" message displays.
-	@$(WINSHELL) /c start avarice --jtag $(JTAG_DEV) --erase --program --file \
+	@$(SHELL) avarice --jtag $(JTAG_DEV) --erase --program --file \
 	$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
-	@$(WINSHELL) /c pause
+	@$(SHELL) pause
 
 else
-	@$(WINSHELL) /c start simulavr --gdbserver --device $(MCU) --clock-freq \
+	@$(SHELL) /c start simulavr --gdbserver --device $(MCU) --clock-freq \
 	$(DEBUG_MFREQ) --port $(DEBUG_PORT)
 endif
-	@$(WINSHELL) /c start avr-$(DEBUG_UI) --command=$(GDBINIT_FILE)
+	@$(SHELL) /c start avr-$(DEBUG_UI) --command=$(GDBINIT_FILE)
 
 
 

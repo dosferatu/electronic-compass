@@ -13,26 +13,42 @@
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include "TWI_Master.h"
-
-//11100101
-unsigned char twcr = 0xE5;
-unsigned char TWI_ACCEL_SLAVE_ADDR = 0;
-unsigned char TW_MAG_SLAVE_ADDR = 0;
+#include <util/delay.h>
+#include "LSM303.h"
 
 int main()
 {
-		TWI_Master_Initialise();
-		sei();	// Enable TWI interrupts
+	// Normal power, all axes enabled
+	unsigned char accelControlRegValues = 0x27;
+	unsigned char heading;
 
-		while(true)
+	// Set PD4 as an output low
+	DDRD = 0x10;
+	PORTD = 0x00;
+
+	// Set the TWI master to initial standby state
+	TWI_Master_Initialise();
+
+	// Enable interrupts
+	sei();
+
+	// Send the config values to the accel control reg
+	SetAccelCTRL1(accelControlRegValues);
+
+	while(true)
+	{
+		// Check mag status reg for DRDY (bit 0) and do a
+		// reading if it is set.
+		if (GetMagStatus() & 0x1)
 		{
-				// Tell sensor we want a reading
-				// wait for interrupt from sensor
-				// read in sensor data
-				// calculate heading
-				// display to lcd
-				TWI_Start_Transceiver();
+			heading = ReadHeading();
+
+			if (heading >= 0 || heading <= 360)
+					PORTD = 0x10;
+			// Write to display here
 		}
-		return 0;
+		else
+			PORTD = 0x00;
+	}
+	return 0;
 }
