@@ -8,13 +8,13 @@
  * results to display values for the LCD.
  */
 
-// Register definitions.
-//#define INT_TWI 0x0030	// 2-wire Serial Interface Interrupt
+#define stuff PORTD
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "LSM303.h"
+#include "LSM303/LSM303.h"
+//#include "glcd/glcd.h"
 
 int main()
 {

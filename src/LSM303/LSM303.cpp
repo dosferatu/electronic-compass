@@ -1,3 +1,9 @@
+/*
+ * The ReadHeading() function uses the Pololu LSM303 Arduino library
+ * as the design reference, and the license for that library has been
+ * included as "LSM303 LICENSE.TXT" in this directory.
+ */
+
 #include <math.h>
 #include "LSM303.h"
 

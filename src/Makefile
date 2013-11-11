@@ -79,11 +79,19 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC =
+SRC =	glcd/glcd.c\
+		glcd/graphics.c\
+		glcd/graphs.c\
+		glcd/text.c\
+		glcd/text_tiny.c\
+		glcd/controllers/PCD8544.c\
+		glcd/devices/AVR8.c\
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
-CPPSRC = $(TARGET).cpp TWI_Master.cpp LSM303.cpp
+CPPSRC =	$(TARGET).cpp\
+			LSM303/LSM303.cpp\
+			LSM303/TWI_Master.cpp
 
 
 # List Assembler source files here.
@@ -99,7 +107,7 @@ ASRC =
 # Optimization level, can be [0, 1, 2, 3, s]. 
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = 0
+OPT = s
 
 
 # Debugging format.
@@ -125,7 +133,7 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = -DF_CPU=$(F_CPU)UL
+CDEFS = -DF_CPU=$(F_CPU)UL -DGLCD_DEVICE_AVR8 -DGLCD_CONTROLLER_PCD8544 -DGLCD_USE_SPI
 
 
 # Place -D or -U options here for ASM sources
