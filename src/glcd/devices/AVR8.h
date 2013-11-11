@@ -70,7 +70,7 @@
 	 * \name Other pins needed for serial LCD controller
 	 * @{
 	 */
-	#define CONTROLLER_SS_PORT   PORTA
+	#define CONTROLLER_SS_PORT   PORTB
 	#define CONTROLLER_SS_PIN    5
 	#define CONTROLLER_DC_PORT   PORTB
 	#define CONTROLLER_DC_PIN    5

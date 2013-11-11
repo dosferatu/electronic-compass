@@ -81,11 +81,11 @@ OBJDIR = .
 # List C source files here. (C dependencies are automatically generated.)
 SRC =	glcd/glcd.c\
 		glcd/graphics.c\
-		glcd/graphs.c\
 		glcd/text.c\
 		glcd/text_tiny.c\
 		glcd/controllers/PCD8544.c\
 		glcd/devices/AVR8.c\
+# glcd/graphs.c not included because the code is broken and I don't need to fix it for the project.
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -133,7 +133,7 @@ CSTANDARD = -std=gnu99
 
 
 # Place -D or -U options here for C sources
-CDEFS = -DF_CPU=$(F_CPU)UL -DGLCD_DEVICE_AVR8 -DGLCD_CONTROLLER_PCD8544 -DGLCD_USE_SPI
+CDEFS = -DF_CPU=$(F_CPU)UL -DGLCD_DEVICE_AVR8 -DGLCD_CONTROLLER_PCD8544 -DGLCD_USE_SPI -DGLCD_USE_AVR_DELAY
 
 
 # Place -D or -U options here for ASM sources
@@ -602,6 +602,8 @@ clean_list :
 	$(REMOVE) $(TARGET).map
 	$(REMOVE) $(TARGET).sym
 	$(REMOVE) $(TARGET).lss
+	$(REMOVE) $(CPPSRC:%.cpp=$(OBJDIR)/%.o)
+	$(REMOVE) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst)
 	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.o)
 	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.lst)
 	$(REMOVE) $(SRC:.c=.s)
