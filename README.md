@@ -1,4 +1,7 @@
 Electronic-Compass
 ==================
 
-A simple project for an upper division electrical engineering course at Portland State University that is designed from the ground up.
+An electronic compass using an ATMega32U4 microcontroller interfaced to an LSM303DLH accel/magnetomer IC and a Nokia 5110 LCD display.
+The sensor is driven through the TWI bus, and the LCD is driven through the SPI bus.
+
+Layout of the PCB is done in Eagle, and the software targets the avr-gcc compiler.
