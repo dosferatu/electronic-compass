@@ -3619,8 +3619,14 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="C1" pad="2"/>
 <contactref element="Y1" pad="3"/>
 <contactref element="U1" pad="17"/>
-<wire x1="9.36625" y1="8.39875" x2="26.035" y2="11.84" width="0" layer="19" extent="1-1"/>
-<wire x1="6.295" y1="8.135" x2="9.36625" y2="8.39875" width="0" layer="19" extent="1-1"/>
+<wire x1="6.295" y1="8.135" x2="9.36625" y2="8.39875" width="0.254" layer="1"/>
+<wire x1="9.36625" y1="8.39875" x2="13.97" y2="9.2075" width="0.254" layer="1"/>
+<wire x1="13.97" y1="9.2075" x2="18.7325" y2="10.4775" width="0.254" layer="1"/>
+<wire x1="18.7325" y1="10.4775" x2="20.79625" y2="10.4775" width="0.254" layer="1"/>
+<wire x1="20.79625" y1="10.4775" x2="23.1775" y2="9.68375" width="0.254" layer="1"/>
+<wire x1="23.1775" y1="9.68375" x2="24.92375" y2="9.68375" width="0.254" layer="1"/>
+<wire x1="24.92375" y1="9.68375" x2="26.035" y2="10.63625" width="0.254" layer="1"/>
+<wire x1="26.035" y1="10.63625" x2="26.035" y2="11.84" width="0.254" layer="1"/>
 </signal>
 <signal name="N$42">
 <contactref element="Y1" pad="1"/>
@@ -3629,8 +3635,13 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="2.595" y1="5.835" x2="2.54" y2="3.825" width="0.254" layer="1"/>
 <wire x1="2.595" y1="5.835" x2="4.445" y2="4.28625" width="0.254" layer="1"/>
 <wire x1="4.445" y1="4.28625" x2="6.6675" y2="4.28625" width="0.254" layer="1"/>
-<wire x1="6.6675" y1="4.28625" x2="16.8275" y2="8.73125" width="0.254" layer="1"/>
-<wire x1="16.8275" y1="8.73125" x2="25.535" y2="11.84" width="0" layer="19" extent="1-1"/>
+<wire x1="6.6675" y1="4.28625" x2="16.8275" y2="8.89" width="0.254" layer="1"/>
+<wire x1="16.8275" y1="8.89" x2="21.74875" y2="9.04875" width="0.254" layer="1"/>
+<wire x1="25.535" y1="11.84" x2="25.55875" y2="11.1125" width="0.254" layer="1"/>
+<wire x1="25.55875" y1="11.1125" x2="24.4475" y2="10.63625" width="0.254" layer="1"/>
+<wire x1="24.4475" y1="10.63625" x2="21.74875" y2="9.04875" width="0.254" layer="16"/>
+<via x="24.4475" y="10.63625" extent="1-16" drill="0.6"/>
+<via x="21.74875" y="9.04875" extent="1-16" drill="0.6"/>
 </signal>
 <signal name="N$2">
 <contactref element="U1" pad="32"/>
