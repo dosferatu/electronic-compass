@@ -3149,8 +3149,13 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="S1" pad="3"/>
 <contactref element="U1" pad="13"/>
 <contactref element="R1" pad="1"/>
-<wire x1="10.63625" y1="12.0675" x2="24.035" y2="11.84" width="0" layer="19" extent="1-16"/>
-<wire x1="6.985" y1="12.065" x2="10.63625" y2="12.0675" width="0" layer="19" extent="16-16"/>
+<wire x1="6.985" y1="12.065" x2="10.63625" y2="12.0675" width="0.254" layer="16"/>
+<wire x1="10.63625" y1="12.0675" x2="12.7" y2="12.22375" width="0.254" layer="16"/>
+<wire x1="12.7" y1="12.22375" x2="18.25625" y2="15.875" width="0.254" layer="16"/>
+<wire x1="18.25625" y1="15.875" x2="22.5425" y2="15.875" width="0.254" layer="16"/>
+<wire x1="22.5425" y1="15.875" x2="24.13" y2="13.97" width="0.254" layer="16"/>
+<wire x1="24.035" y1="11.84" x2="24.13" y2="13.97" width="0.254" layer="1"/>
+<via x="24.13" y="13.97" extent="1-16" drill="0.6"/>
 </signal>
 <signal name="D+">
 <contactref element="U1" pad="4"/>
