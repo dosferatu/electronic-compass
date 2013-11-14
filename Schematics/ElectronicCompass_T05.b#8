@@ -3671,7 +3671,9 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="TP26" pad="TP"/>
 <wire x1="29.435" y1="17.24" x2="30.1625" y2="17.30375" width="0.254" layer="1"/>
 <wire x1="30.1625" y1="17.30375" x2="31.115" y2="18.57375" width="0.254" layer="1"/>
-<wire x1="31.115" y1="18.57375" x2="37.7825" y2="27.94" width="0" layer="19" extent="1-16"/>
+<wire x1="31.115" y1="18.57375" x2="37.30625" y2="27.14625" width="0.254" layer="1"/>
+<wire x1="37.7825" y1="27.94" x2="37.30625" y2="27.14625" width="0.254" layer="16"/>
+<via x="37.30625" y="27.14625" extent="1-16" drill="0.6"/>
 </signal>
 <signal name="N$3">
 <contactref element="TP12" pad="TP"/>

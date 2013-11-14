@@ -45,19 +45,19 @@
 #define sbi(var, mask)   ((var) |= _BV(mask))
 #define cbi(var, mask)   ((var) &= ~(_BV(mask)))
 #define DDR(x) (*(&x - 1))
-#define PIN(x) (*(&x - 2)) 
+#define PIN(x) (*(&x - 2))
 #endif
 
 #define swap(a, b) { uint8_t t = a; a = b; b = t; }
 
 #if defined(GLCD_CONTROLLER_PCD8544)
-	
+
 	/**
 	 * \name SPI port and pins
 	 * @{
 	 */
 	#define AVR_SS_PORT          PORTB
-	#define AVR_SS_PIN           0		
+	#define AVR_SS_PIN           0
 	#define CONTROLLER_MOSI_PORT PORTB
 	#define CONTROLLER_MOSI_PIN  2
 	#define CONTROLLER_MISO_PORT PORTB
@@ -71,11 +71,11 @@
 	 * @{
 	 */
 	#define CONTROLLER_SS_PORT   PORTB
-	#define CONTROLLER_SS_PIN    5
+	#define CONTROLLER_SS_PIN    0
 	#define CONTROLLER_DC_PORT   PORTB
-	#define CONTROLLER_DC_PIN    5
+	#define CONTROLLER_DC_PIN    4
 	#define CONTROLLER_RST_PORT  PORTB
-	#define CONTROLLER_RST_PIN   4
+	#define CONTROLLER_RST_PIN   5
 	/**@}*/
 
 #elif defined (GLCD_CONTROLLER_ST7565R)
@@ -84,7 +84,7 @@
 	 * @{
 	 */
 	#define AVR_SS_PORT          PORTB
-	#define AVR_SS_PIN           0	
+	#define AVR_SS_PIN           0
 	#define CONTROLLER_MOSI_PORT PORTB
 	#define CONTROLLER_MOSI_PIN  2
 	#define CONTROLLER_MISO_PORT PORTB
@@ -98,7 +98,7 @@
 	 * @{
 	 */
 	#define CONTROLLER_A0_PORT   PORTC /**< Output port to GLCD A0 pin. */
-	#define CONTROLLER_A0_PIN    0     /**< Output pin number to GLCD A0 pin. */	
+	#define CONTROLLER_A0_PIN    0     /**< Output pin number to GLCD A0 pin. */
 	#define CONTROLLER_SS_PORT   PORTG
 	#define CONTROLLER_SS_PIN    0
 	#define CONTROLLER_RST_PORT  PORTG
