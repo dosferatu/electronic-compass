@@ -2996,7 +2996,7 @@ Please make sure your boards conform to these design rules.</description>
 <element name="R7" library="resistor" package="M0805" value="1k" x="1.905" y="-9.2075"/>
 <element name="R9" library="resistor" package="M0805" value="10k" x="1.905" y="-14.76375"/>
 <element name="R10" library="resistor" package="M0805" value="1k" x="1.905" y="-20.32"/>
-<element name="JP4" library="pinhead" package="1X02" value="BATT" x="2.95" y="-26.65"/>
+<element name="JP4" library="pinhead" package="1X02" value="BATT" x="5.2" y="7.55" rot="MR90"/>
 </elements>
 <signals>
 <signal name="GND" airwireshidden="yes">
@@ -3056,7 +3056,6 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="25.035" y1="11.99875" x2="25.0325" y2="12.22375" width="0" layer="19" extent="1-1"/>
 <wire x1="35.875" y1="40.005" x2="30.48" y2="36.83" width="0" layer="19" extent="1-1"/>
 <wire x1="0.955" y1="-14.76375" x2="12.385" y2="3.33375" width="0" layer="19" extent="1-16"/>
-<wire x1="4.22" y1="-26.65" x2="0.955" y2="-14.76375" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VCC">
 <contactref element="R1" pad="2"/>
@@ -3550,7 +3549,7 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="23.65375" y1="33.17875" x2="32.22625" y2="33.17875" width="0.254" layer="16"/>
 <wire x1="32.22625" y1="33.17875" x2="36.03625" y2="36.98875" width="0.254" layer="16"/>
 <contactref element="JP4" pad="1"/>
-<wire x1="1.68" y1="-26.65" x2="17.78" y2="27.305" width="0" layer="19" extent="16-16"/>
+<wire x1="5.2" y1="6.28" x2="17.78" y2="27.305" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="N$16">
 <contactref element="Q2" pad="1"/>
@@ -3745,6 +3744,15 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="JP1" pad="2"/>
 <contactref element="TP18" pad="TP"/>
 <wire x1="41.91" y1="26.67" x2="49.53" y2="24.13" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="N$43">
+<wire x1="22.05" y1="23.5" x2="22.1" y2="21.95" width="0.254" layer="1"/>
+<wire x1="22.1" y1="21.95" x2="22.25" y2="21.75" width="0.254" layer="1"/>
+<wire x1="22.25" y1="21.75" x2="24.2" y2="19.8" width="0.254" layer="1"/>
+<wire x1="24.2" y1="19.8" x2="24.25" y2="19.8" width="0.254" layer="1"/>
+<wire x1="24.25" y1="19.8" x2="24.5" y2="19.55" width="0.254" layer="1"/>
+<wire x1="24.5" y1="19.55" x2="24.5" y2="19.2" width="0.254" layer="1"/>
+<wire x1="24.5" y1="19.2" x2="24.55" y2="19.15" width="0.254" layer="1"/>
 </signal>
 </signals>
 </board>
