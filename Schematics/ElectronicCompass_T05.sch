@@ -13694,14 +13694,14 @@ Mors</description>
 <part name="Q6" library="transistor-npn" deviceset="BC817*" device="SMD" technology="-16LT1"/>
 <part name="GND20" library="supply1" deviceset="GND" device=""/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
-<part name="JP5" library="pinhead" deviceset="PINHD-1X2" device="" value="ON/OFF"/>
 <part name="GND22" library="SparkFun" deviceset="GND" device=""/>
 <part name="GND23" library="SparkFun" deviceset="GND" device=""/>
 <part name="P+5" library="supply1" deviceset="VCC" device=""/>
-<part name="S2" library="switch-dil" deviceset="DS01E" device="" value="Switch"/>
+<part name="S2" library="switch-dil" deviceset="DS01E" device="" value="Pgm/Run"/>
 <part name="C8" library="rcl" deviceset="C-US" device="C0805" value="1uF"/>
 <part name="GND24" library="SparkFun" deviceset="GND" device=""/>
 <part name="R11" library="resistor" deviceset="R-US_" device="M0805" value="10k"/>
+<part name="S3" library="switch-dil" deviceset="DS01E" device="" value="Off/On"/>
 </parts>
 <sheets>
 <sheet>
@@ -13956,10 +13956,6 @@ Group Members:
 <instance part="Q6" gate="G$1" x="185.42" y="-25.4"/>
 <instance part="GND20" gate="1" x="182.88" y="-78.74"/>
 <instance part="GND21" gate="1" x="187.96" y="-35.56"/>
-<instance part="JP5" gate="G$1" x="104.14" y="71.12" smashed="yes" rot="R90">
-<attribute name="NAME" x="105.41" y="75.565" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="107.95" y="63.5" size="1.778" layer="96" rot="R180"/>
-</instance>
 <instance part="GND22" gate="1" x="96.52" y="0"/>
 <instance part="GND23" gate="1" x="81.28" y="-68.58"/>
 <instance part="P+5" gate="VCC" x="99.06" y="-38.1" smashed="yes">
@@ -13972,6 +13968,7 @@ Group Members:
 <attribute name="NAME" x="97.5614" y="-52.07" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="102.362" y="-52.07" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="S3" gate="1" x="104.14" y="68.58" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -14155,8 +14152,8 @@ Group Members:
 <segment>
 <pinref part="P+3" gate="VCC" pin="VCC"/>
 <wire x1="116.84" y1="73.66" x2="116.84" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="68.58" x2="104.14" y2="68.58" width="0.1524" layer="91"/>
-<pinref part="JP5" gate="G$1" pin="2"/>
+<wire x1="116.84" y1="68.58" x2="109.22" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="S3" gate="1" pin="2"/>
 </segment>
 <segment>
 <pinref part="P+4" gate="1" pin="VCC"/>
@@ -14594,13 +14591,12 @@ Group Members:
 <wire x1="78.74" y1="68.58" x2="78.74" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="68.58" x2="78.74" y2="68.58" width="0.1524" layer="91"/>
 <junction x="78.74" y="68.58"/>
-<wire x1="101.6" y1="68.58" x2="88.9" y2="68.58" width="0.1524" layer="91"/>
 <pinref part="C10" gate="G$1" pin="1"/>
 <wire x1="88.9" y1="68.58" x2="78.74" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="66.04" x2="88.9" y2="68.58" width="0.1524" layer="91"/>
-<junction x="88.9" y="68.58"/>
 <pinref part="U$1" gate="G$1" pin="OUT"/>
-<pinref part="JP5" gate="G$1" pin="1"/>
+<pinref part="S3" gate="1" pin="1"/>
+<wire x1="88.9" y1="68.58" x2="99.06" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$37" class="0">
