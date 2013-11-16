@@ -6,147 +6,580 @@
 
 #include <math.h>
 #include "LSM303.h"
+#include <avr/io.h>
+#include <util/delay.h>
 
 unsigned char GetMagStatus()
 {
-	unsigned char data;
-	unsigned char message[2] =	{LSM303_MAG_READ_ADDRESS,
-								LSM303_SR_REG_M};
+  unsigned char data;
+  unsigned char message[2] =	{LSM303_MAG_READ_ADDRESS,
+    LSM303_SR_REG_M};
 
-	if (TWI_statusReg.lastTransOK)
-	{
-		TWI_Start_Transceiver_With_Data(message, 2);
-		TWI_Get_Data_From_Transceiver(message, 1);
-	}
+  //if (TWI_statusReg.lastTransOK)
+  //TWI_Start_Transceiver_With_Data(message, 2);
 
-	data = message[0];
-	return data;
+  //if (TWI_statusReg.lastTransOK)
+  //TWI_Get_Data_From_Transceiver(message, 1);
+
+  /*
+   * We need to write one byte to slave. The flow for this is:
+   * Master: START, SAD + W
+   * Slave: SAK
+   * Master: SUB
+   * Slate: SAK
+   * Master: DATA
+   * Slave: SAK
+   * Master: STOP
+   */
+
+  data = message[0];
+  return data;
 }
 
-unsigned char ReadHeading()
+int ReadHeading()
 {
-	// Format is [x,y,z]
-	char accelVector[3];
-	char magVector[3];
-	
-	// Format is low byte, high byte, etc...
-	unsigned char accelData[6];
+  // Format is low byte, high byte, etc...
+  unsigned char accelData[6] = {0};
 
-	// Format is high byte, low byte, etc...
-	unsigned char magData[6];
+  // Format is high byte, low byte, etc...
+  unsigned char magData[6] = {0};
 
-	// Heading calculation vectors
-	char east[3];
-	char north[3];
+  // Heading calculation vectors
+  int heading;
+  vector accel;
+  vector mag;
+  vector east;
+  vector north;
+  vector from = {0, -1, 0};
 
-	int fromVector[3] = {0, -1, 0};
+  /*
+   * We need to read 6 bytes from the accelerometer.
+   *
+   * The flow for this is:
+   * Master: START, SAD + W
+   * Slave: SAK
+   * Master: SUB
+   * Slave: SAK
+   * Master: RESTART, SAD + R
+   * Slave: SAK
+   *
+   * The following iterates for 5 bytes in our case:
+   * Slave: DATA
+   * Master: MAK
+   * ...
+   *
+   * Slave: DATA
+   * MASTER: NMAK, STOP
+   */
 
-	float eastFromDotProduct;
-	float northFromDotProduct;
+  /*
+   * BEGIN ACCELEROMETER READ
+   */
 
-	// Heading
-	unsigned char heading;
-	
-	// TWI instructions
-	// Assert the MSB of the LSM303 accel reg sub address to get
-	// the sub address auto increment to occur for both reads.
-	unsigned char accelReadRequest[2] =	{LSM303_ACCEL_READ_ADDRESS,
-										LSM303_OUT_X_L_A | (1 << 7)};
+    // Set up the TWCR to send START
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
 
- 
-	unsigned char magReadRequest[2] =	{LSM303_MAG_READ_ADDRESS,
-										LSM303_OUT_X_H_M};
-	
-	// Read in the accel data
-	if (TWI_statusReg.lastTransOK)
-	{
-		TWI_Start_Transceiver_With_Data(accelReadRequest, 2);
-		TWI_Get_Data_From_Transceiver(accelData, 6);
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
 
-		// Combine low and high bytes in to [x,y,z] vector
-		accelVector[0] = (accelData[1] << 8 | accelData[0]) >> 4;
-		accelVector[1] = (accelData[3] << 8 | accelData[2]) >> 4;
-		accelVector[2] = (accelData[5] << 8 | accelData[4]) >> 4;
-	}
+  // Verify START condition
+  //if ((TWSR & 0xF8) == 0x08)
+    //BlinkLED(1);
 
-	// Read in the mag data
-	if (TWI_statusReg.lastTransOK)
-	{
-		TWI_Start_Transceiver_With_Data(magReadRequest, 2);
-		TWI_Get_Data_From_Transceiver(magData, 6);
+  // Verify repeat START condition
+  //if ((TWSR & 0xF8) == 0x10)
+    //BlinkLED(2);
 
-		// Combine high and low bytes in to [x,y,z] vector
-		magVector[0] = magData[0] << 8 | magData[1];
-		magVector[1] = magData[2] << 8 | magData[3];
-		magVector[2] = magData[4] << 8 | magData[5];
-	}
+  // Load the TWI buffer with SLA + W
+  TWDR = LSM303_ACCEL_WRITE_ADDRESS;
 
-	/* Accel vector normalization */
-	// First perform vector dot function
-	float mag =	sqrt(accelVector[0] * accelVector[0] +
-					accelVector[1] * accelVector[1] + 
-					accelVector[2] * accelVector[2]);
+  // Set up the TWCR to send SLA + W
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
 
-	// Now normalize it
-	// I know the vector may be undefined, but if it is we have bigger problems.
-#pragma GCC diagnostic ignored "-Wsequence-point"
-	accelVector[0] = accelVector[0] /= mag;
-	accelVector[1] = accelVector[1] /= mag;
-	accelVector[2] = accelVector[2] /= mag;
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
 
-	// Normalize mag vector?
+  // Verify SLA + W transmitted, ACK received
+  //if ((TWSR & 0xF8) == 0x18)
+    //BlinkLED(3);
 
-	// Compute East
-	// Perform vector cross function
-	east[0] = magVector[1] * accelVector[2] - magVector[2] * accelVector[1];
-	east[1] = magVector[2] * accelVector[0] - magVector[0] * accelVector[2];
-	east[2] = magVector[0] * accelVector[1] - magVector[1] * accelVector[0];
+  // Load the TWI buffer with the SUB address and
+  // make sure the MSB is set so that the accelerometer
+  // knows to autoincrement the internal address pointer
+  // for subsequent reads
+  TWDR = LSM303_OUT_X_L_A | (1 << 7);
 
-	/* East vector normalization */
-	// First perform vector dot function
-	mag = sqrt(east[0] * east[0] +
-				east[1] * east[1] +
-				east[2] * east[2]);
-	
-	// Now normalize it
-	east[0] = east[0] / mag;
-	east[1] = east[1] / mag;
-	east[2] = east[2] / mag;
+  // Set up the TWCR to send SUB address
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
 
-	// Perform vector cross function on the accel and East vectors
-	north[0] = accelVector[1] * east[2] - accelVector[2] * east[1];
-	north[1] = accelVector[2] * east[0] - accelVector[0] * east[2];
-	north[2] = accelVector[0] * east[1] - accelVector[1] * east[0];
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
 
-	/* Heading calculations */
-	// Perform vector dot function on the east and from vectors
-	eastFromDotProduct = sqrt(east[0] * fromVector[0] +
-							east[1] * fromVector[1] +
-							east[2] * fromVector[2]);
+  // Verify SUB transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x28)
+    //BlinkLED(4);
 
-	northFromDotProduct = sqrt(north[0] * fromVector[0] +
-							north[1] * fromVector[1] +
-							north[2] * fromVector[2]);
+  // Load the TWI buffer with SLA + R
+  TWDR = LSM303_ACCEL_READ_ADDRESS;
 
-	// Calculate the heading
-	heading = round(atan2(eastFromDotProduct, northFromDotProduct) * 180 / M_PI);
+  // Set up the TWCR to send repeat START condition
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
 
-	if (heading < 0)
-			heading += 360;
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
 
-	return heading;
+  // Verify repeat START condition
+  //if ((TWSR & 0xF8) == 0x10)
+    //BlinkLED(2);
+
+  // Set up the TWCR to send SLA + R
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify SLA + R transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x40)
+    //BlinkLED(5);
+
+  // Receive the first 5 data bytes
+  for (int i = 0; i < 5; ++i)
+  {
+    // Set up the TWCR to receive the data byte and return ACK
+    TWCR =  (1<<TWEN)|                        // TWI enabled
+            (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+            (1<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // Send ACK
+            (0<<TWWC);
+
+    // Hold execution until TWI interrupt flag is set
+    while(!(TWCR & (1<<TWINT)));
+
+    // Verify data byte received, ACK transmitted
+    //if ((TWSR & 0xF8) == 0x50)
+      //BlinkLED(6);
+
+    // Read the data byte in
+    accelData[i] = TWDR;
+  }
+
+    // Set up the TWCR to receive the data byte and return NACK
+    TWCR =  (1<<TWEN)|                        // TWI disabled
+            (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+            (0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // Send ACK
+            (0<<TWWC);
+
+    // Hold execution until TWI interrupt flag is set
+    while(!(TWCR & (1<<TWINT)));
+
+    // Verify data byte received, NACK transmitted
+    //if ((TWSR & 0xF8) == 0x58)
+      //BlinkLED(7);
+
+    // Read the last data byte in
+    accelData[5] = TWDR;
+
+    // Set up the TWCR to send the STOP condition
+    TWCR =  (0<<TWEN)|                        // TWI disabled
+            (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+            (0<<TWEA)|(0<<TWSTA)|(1<<TWSTO)|  // Initiate a STOP condition
+            (0<<TWWC);
+  /*
+   * END ACCELEROMETER READ
+   */
+
+  // Combine low and high bytes in to [x,y,z] vector
+  accel.x = ((int16_t)(accelData[1] << 8 | accelData[0])) >> 4;
+  accel.y = ((int16_t)(accelData[3] << 8 | accelData[2])) >> 4;
+  accel.z = ((int16_t)(accelData[5] << 8 | accelData[4])) >> 4;
+
+  //BlinkLED(int(accel.x / 100));
+  //BlinkLED(int(accel.y / 100));
+  //BlinkLED(int(accel.z / 100));
+
+
+  /*
+   * We need to read 6 bytes from the magnetometer.
+   *
+   * The flow for this is:
+   * Master: START, SAD + W
+   * Slave: SAK
+   * Master: SUB
+   * Slave: SAK
+   * Master: RESTART, SAD + R
+   * Slave: SAK
+   *
+   * The following iterates for 5 bytes in our case:
+   * Slave: DATA
+   * Master: MAK
+   * ...
+   *
+   * Slave: DATA
+   * MASTER: NMAK, STOP
+   */
+
+  /*
+   * BEGIN MAGNETOMETER READ
+   */
+
+    // Set up the TWCR to send START
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify START condition
+  //if ((TWSR & 0xF8) == 0x08)
+    //BlinkLED(1);
+
+  // Verify repeat START condition
+  //if ((TWSR & 0xF8) == 0x10)
+    //BlinkLED(2);
+
+  // Load the TWI buffer with SLA + W
+  TWDR = LSM303_MAG_WRITE_ADDRESS;
+
+  // Set up the TWCR to send SLA + W
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify SLA + W transmitted, ACK received
+  //if ((TWSR & 0xF8) == 0x18)
+    //BlinkLED(3);
+
+  // Load the TWI buffer with the SUB address
+  TWDR = LSM303_OUT_X_H_M;
+
+  // Set up the TWCR to send SUB address
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify SUB transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x28)
+    //BlinkLED(4);
+
+  // Load the TWI buffer with SLA + R
+  TWDR = LSM303_MAG_READ_ADDRESS;
+
+  // Set up the TWCR to send repeat START condition
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify repeat START condition
+  //if ((TWSR & 0xF8) == 0x10)
+    //BlinkLED(2);
+
+  // Set up the TWCR to send SLA + R
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify SLA + R transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x40)
+    //BlinkLED(5);
+
+  // Receive the first 5 data bytes
+  for (int i = 0; i < 5; ++i)
+  {
+    // Set up the TWCR to receive the data byte and return ACK
+    TWCR =  (1<<TWEN)|                        // TWI enabled
+            (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+            (1<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // Send ACK
+            (0<<TWWC);
+
+    // Hold execution until TWI interrupt flag is set
+    while(!(TWCR & (1<<TWINT)));
+
+    // Verify data byte received, ACK transmitted
+    //if ((TWSR & 0xF8) == 0x50)
+      //BlinkLED(6);
+
+    // Read the data byte in
+    accelData[i] = TWDR;
+  }
+
+    // Set up the TWCR to receive the data byte and return NACK
+    TWCR =  (1<<TWEN)|                        // TWI disabled
+            (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+            (0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // Send ACK
+            (0<<TWWC);
+
+    // Hold execution until TWI interrupt flag is set
+    while(!(TWCR & (1<<TWINT)));
+
+    // Verify data byte received, NACK transmitted
+    //if ((TWSR & 0xF8) == 0x58)
+      //BlinkLED(7);
+
+    // Read the last data byte in
+    accelData[5] = TWDR;
+
+    // Set up the TWCR to send the STOP condition
+    TWCR =  (0<<TWEN)|                        // TWI disabled
+            (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+            (0<<TWEA)|(0<<TWSTA)|(1<<TWSTO)|  // Initiate a STOP condition
+            (0<<TWWC);
+  /*
+   * END MAGNETOMETER READ
+   */
+
+  // Combine high and low bytes in to [x,y,z] vector
+  mag.x = (int16_t)(magData[0] << 8 | magData[1]);
+  mag.y = (int16_t)(magData[2] << 8 | magData[3]);
+  mag.z = (int16_t)(magData[4] << 8 | magData[5]);
+
+  // Shift and scale
+  // Probably need to do our own calibration values
+  mag.x = (mag.x - cal_x_min) / (cal_x_max - cal_x_min) * 2 - 1.0;
+  mag.y = (mag.y - cal_y_min) / (cal_y_max - cal_y_min) * 2 - 1.0;
+  mag.z = (mag.z - cal_z_min) / (cal_z_max - cal_z_min) * 2 - 1.0;
+
+  //BlinkLED(int(mag.x));
+  //BlinkLED(int(mag.y));
+  //BlinkLED(int(mag.z));
+
+  // Normalize the accel vector
+  VectorNormalize(&accel);
+  //VectorNormalize(&mag);
+
+  // Compute East and North
+  VectorCross(&mag, &accel, &east);
+  VectorNormalize(&east);
+  VectorCross(&accel, &east, &north);
+
+  // Calculate the heading
+  heading = round(atan2(VectorDot(&east, &from), VectorDot(&north, &from)) * 180 / M_PI);
+
+  if (heading < 0)
+    heading += 360;
+
+  return heading;
 }
 
-void SetAccelCTRL1(unsigned char configByte)
+/*
+ * Write a configuration byte to the CTRL1_REG_A and the MR_REG_M
+ * configurations in the accelerometer and magnetometer devices.
+ */
+void EnableDefaults()
 {
-	unsigned char message[3] =	{LSM303_ACCEL_WRITE_ADDRESS,
-								LSM303_CTRL_REG1_A,
-								configByte};
+  // Enable the TWI
+  // Set the baud rate to 400KHz (fast mode)
+  TWBR = TWI_TWBR;                          // Set the bit rate register for 400KHz
+  //TWDR = 0xFF;                              // Default content = SDA released
+  //TWCR =  (1<<TWEN)|                        // Enable TWI and release TWI pins
+          //(0<<TWIE)|(0<<TWINT)|             // Disable interrupts
+          //(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // No signal requests
+          //(0<<TWWC);
+          
+  /*
+   * We wish to write one byte (0x27) to the accel config register
+   *
+   * The flow should be:
+   * Master: START
+   * Master: SAD + W
+   * Slave: SAK
+   * Master: SUB
+   * Slave: SAK
+   * Master: DATA
+   * Slave: SAK
+   * Master: STOP
+   */
 
-	if (TWI_statusReg.lastTransOK)
-	{
-		TWI_Start_Transceiver_With_Data(message, 3);
-	}
+  // Implement check for a busy transceiver
+  // Set up the TWCR to send START
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
 
-	return;
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify START condition
+  //if ((TWSR & 0xF8) == 0x08)
+    //BlinkLED(1);
+
+  // Load the TWI buffer with the accelerometer read address
+  TWDR = LSM303_ACCEL_WRITE_ADDRESS;
+
+  // Set up the TWCR to send repeat START condition
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify SLA + W transmitted, ACK received
+  //if ((TWSR & 0xF8) == 0x18)
+    //BlinkLED(2);
+
+  // Load the TWI buffer with the SUB address
+  TWDR = LSM303_CTRL_REG1_A;
+
+  // Set up the TWCR to send SUB address
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify data byte transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x28)
+    //BlinkLED(3);
+  
+  // Load the TWI buffer with the accelerometer config value
+  // 0x27 = 
+  TWDR = 0x27;
+
+  // Set up the TWCR to send configuration word
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify data byte transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x28)
+    //BlinkLED(3);
+
+  // Set up the TWCR to send STOP condition
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT)|                       // Clear TWINT to send data
+          (1<<(TWSTO));                      // Set STOP condition
+
+  /*
+   * We wish to write one byte (0x00) to the accel config register
+   *
+   * The flow should be:
+   * Master: START
+   * Master: SAD + W
+   * Slave: SAK
+   * Master: SUB
+   * Slave: SAK
+   * Master: DATA
+   * Slave: SAK
+   * Master: STOP
+   */
+
+  // Implement check for a busy transceiver
+  // Set up the TWCR to send START
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(1<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify repeat START condition
+  //if ((TWSR & 0xF8) == 0x10)
+    //BlinkLED(1);
+
+  // Load the TWI buffer with the accelerometer read address
+  TWDR = LSM303_MAG_WRITE_ADDRESS;
+
+  // Set up the TWCR to send repeat START condition
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify SLA + W transmitted, ACK received
+  //if ((TWSR & 0xF8) == 0x18)
+    //BlinkLED(2);
+
+  // Load the TWI buffer with the SUB address
+  TWDR = LSM303_MR_REG_M;
+
+  // Set up the TWCR to send SUB address
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify data byte transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x28)
+    //BlinkLED(3);
+  
+  // Load the TWI buffer with the magnetometer config value
+  // 0x00 = Continuous conversion mode
+  TWDR = 0x00;
+
+  // Set up the TWCR to send configuration word
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT);                       // Clear TWINT to send data
+
+  // Hold execution until TWI interrupt flag is set
+  while(!(TWCR & (1<<TWINT)));
+
+  // Verify data byte transmitted, ACK received.
+  //if ((TWSR & 0xF8) == 0x28)
+    //BlinkLED(3);
+
+  // Set up the TWCR to send STOP condition
+  TWCR =  (1<<TWEN)|                        // TWI enabled
+          (1<<TWINT)|                       // Clear TWINT to send data
+          (1<<(TWSTO));                      // Set STOP condition
+
+  return;
+}
+
+void VectorCross(const vector *a, const vector *b, vector *out)
+{
+  out->x = a->y*b->z - a->z*b->y;
+  out->y = a->z*b->x - a->x*b->z;
+  out->z = a->x*b->y - a->y*b->x;
+}
+
+float VectorDot(const vector *a,const vector *b)
+{
+  return a->x*b->x+a->y*b->y+a->z*b->z;
+}
+
+void VectorNormalize(vector *a)
+{
+  float mag = sqrt(VectorDot(a,a));
+  a->x /= mag;
+  a->y /= mag;
+  a->z /= mag;
+}
+
+void BlinkLED(int count)
+{
+  for (int i = 0; i < count; ++i)
+  {
+    PORTD = 0x10;
+    _delay_ms(300);
+
+    PORTD = 0x00;
+    _delay_ms(300);
+  }
+  _delay_ms(1000);
+  return;
 }

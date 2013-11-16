@@ -80,18 +80,19 @@ OBJDIR = .
 
 # List C source files here. (C dependencies are automatically generated.)
 SRC =	glcd/glcd.c\
-		glcd/graphics.c\
-		glcd/text.c\
-		glcd/text_tiny.c\
-		glcd/controllers/PCD8544.c\
-		glcd/devices/AVR8.c\
+	glcd/graphs.c\
+	glcd/graphics.c\
+	glcd/unit_tests.c\
+	glcd/text.c\
+	glcd/text_tiny.c\
+	glcd/controllers/PCD8544.c\
+	glcd/devices/AVR8.c
 # glcd/graphs.c not included because the code is broken and I don't need to fix it for the project.
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC =	$(TARGET).cpp\
-			LSM303/LSM303.cpp\
-			LSM303/TWI_Master.cpp
+		LSM303/LSM303.cpp
 
 
 # List Assembler source files here.
@@ -141,7 +142,7 @@ ADEFS = -DF_CPU=$(F_CPU)
 
 
 # Place -D or -U options here for C++ sources
-CPPDEFS = -DF_CPU=$(F_CPU)UL
+CPPDEFS = -DF_CPU=$(F_CPU)UL -DGLCD_DEVICE_AVR8 -DGLCD_CONTROLLER_PCD8544 -DGLCD_USE_SPI -DGLCD_USE_AVR_DELAY
 #CPPDEFS += -D__STDC_LIMIT_MACROS
 #CPPDEFS += -D__STDC_CONSTANT_MACROS
 

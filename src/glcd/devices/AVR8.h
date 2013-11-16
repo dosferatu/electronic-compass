@@ -71,11 +71,11 @@
 	 * @{
 	 */
 	#define CONTROLLER_SS_PORT   PORTB
-	#define CONTROLLER_SS_PIN    5
-	#define CONTROLLER_DC_PORT   PORTB
-	#define CONTROLLER_DC_PIN    5
-	#define CONTROLLER_RST_PORT  PORTB
-	#define CONTROLLER_RST_PIN   4
+	#define CONTROLLER_SS_PIN    0
+	#define CONTROLLER_DC_PORT   PORTF
+	#define CONTROLLER_DC_PIN    6
+	#define CONTROLLER_RST_PORT  PORTF
+	#define CONTROLLER_RST_PIN   7
 	/**@}*/
 
 #elif defined (GLCD_CONTROLLER_ST7565R)
