@@ -13623,7 +13623,6 @@ Source: http://www.fairchildsemi.com/ds/FD/FDN360P.pdf</description>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
-<part name="P+5" library="supply1" deviceset="VCC" device=""/>
 <part name="LED1" library="led" deviceset="LED" device="CHIPLED_0805" value="1"/>
 <part name="Q2" library="transistor-power" deviceset="FDN360P" device=""/>
 <part name="C12" library="rcl" deviceset="C-US" device="C0805" value="10uF"/>
@@ -13684,6 +13683,7 @@ Source: http://www.fairchildsemi.com/ds/FD/FDN360P.pdf</description>
 <part name="C1" library="SparkFun" deviceset="CAP" device="0402-CAP" value="18pF"/>
 <part name="C6" library="SparkFun" deviceset="CAP" device="0402-CAP" value="18pF"/>
 <part name="GND3" library="SparkFun" deviceset="GND" device=""/>
+<part name="GND6" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -13739,7 +13739,6 @@ Group Members:
 <instance part="GND9" gate="1" x="50.8" y="5.08"/>
 <instance part="GND15" gate="1" x="71.12" y="10.16"/>
 <instance part="GND16" gate="1" x="30.48" y="7.62"/>
-<instance part="P+5" gate="VCC" x="25.4" y="35.56"/>
 <instance part="LED1" gate="G$1" x="20.32" y="50.8" rot="R180"/>
 <instance part="Q2" gate="G$1" x="78.74" y="50.8"/>
 <instance part="C12" gate="G$1" x="76.2" y="-17.78"/>
@@ -13809,6 +13808,7 @@ Group Members:
 <attribute name="VALUE" x="132.08" y="-25.273" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="GND3" gate="1" x="116.84" y="-30.48"/>
+<instance part="GND6" gate="1" x="25.4" y="22.86"/>
 </instances>
 <busses>
 </busses>
@@ -13940,6 +13940,17 @@ Group Members:
 <pinref part="U$1" gate="G$1" pin="GND"/>
 <wire x1="50.8" y1="7.62" x2="50.8" y2="10.16" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<wire x1="33.02" y1="25.4" x2="25.4" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="25.4" x2="25.4" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="30.48" x2="25.4" y2="30.48" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="ILIM1"/>
+<junction x="33.02" y="25.4"/>
+<pinref part="U$1" gate="G$1" pin="ILIM0"/>
+<junction x="33.02" y="30.48"/>
+<pinref part="GND6" gate="1" pin="GND"/>
+<junction x="25.4" y="25.4"/>
+</segment>
 </net>
 <net name="VCC" class="0">
 <segment>
@@ -13974,18 +13985,6 @@ Group Members:
 <wire x1="116.84" y1="73.66" x2="116.84" y2="68.58" width="0.1524" layer="91"/>
 <pinref part="S2" gate="1" pin="2"/>
 <wire x1="116.84" y1="68.58" x2="104.14" y2="68.58" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<wire x1="33.02" y1="25.4" x2="25.4" y2="25.4" width="0.1524" layer="91"/>
-<pinref part="P+5" gate="VCC" pin="VCC"/>
-<wire x1="25.4" y1="25.4" x2="25.4" y2="30.48" width="0.1524" layer="91"/>
-<wire x1="25.4" y1="30.48" x2="25.4" y2="33.02" width="0.1524" layer="91"/>
-<wire x1="33.02" y1="30.48" x2="25.4" y2="30.48" width="0.1524" layer="91"/>
-<junction x="25.4" y="30.48"/>
-<pinref part="U$1" gate="G$1" pin="ILIM1"/>
-<junction x="33.02" y="25.4"/>
-<pinref part="U$1" gate="G$1" pin="ILIM0"/>
-<junction x="33.02" y="30.48"/>
 </segment>
 <segment>
 <pinref part="P+4" gate="1" pin="VCC"/>
