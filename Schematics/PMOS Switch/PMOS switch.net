@@ -1,0 +1,16 @@
+* C:\Users\Cody\Documents\GitHub\Electronic-Compass\Schematics\PMOS Switch\PMOS switch.asc
+V1 N004 0 PULSE(0 3.3 0 1f 1f 1 2)
+V2 N001 0 3.3
+R2 out 0 1MEG
+M1 out N004 N001 N001 FDS4435A
+V3 N002 0 PULSE(0 3.3 0 1f 1f 1 2)
+M2 Vout N002 N003 N003 FDS4435A
+V4 N003 0 3.3
+R4 Vout 0 10k
+R5 N002 N003 1k
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\PROGRA~2\LTC\LTSPIC~1\lib\cmp\standard.mos
+.tran 5
+.backanno
+.end
