@@ -2902,9 +2902,9 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="16.32975" y="15.2485" size="0.8128" layer="25" rot="R270"/>
 <attribute name="VALUE" x="15.97775" y="15.8485" size="0.8128" layer="27" rot="R270"/>
 </element>
-<element name="S1" library="SparkFun" package="TACTILE_SWITCH_SMD" value="SWITCH-SMD" x="4.445" y="13.97" smashed="yes" rot="MR0">
-<attribute name="NAME" x="5.334" y="15.748" size="0.8128" layer="26" rot="MR0"/>
-<attribute name="VALUE" x="5.334" y="11.938" size="0.8128" layer="28" rot="MR0"/>
+<element name="S1" library="SparkFun" package="TACTILE_SWITCH_SMD" value="SWITCH-SMD" x="4.795" y="7.17" smashed="yes" rot="MR0">
+<attribute name="NAME" x="5.684" y="8.948" size="0.8128" layer="26" rot="MR0"/>
+<attribute name="VALUE" x="5.684" y="5.138" size="0.8128" layer="28" rot="MR0"/>
 </element>
 <element name="X1" library="SparkFun" package="USB-MINIB" value="USBSMD" x="6.35" y="20.955" smashed="yes">
 <attribute name="NAME" x="2.54" y="22.225" size="0.8128" layer="25"/>
@@ -3286,6 +3286,15 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="24.2" y1="19.3" x2="25.2" y2="19.75" width="0.254" layer="1"/>
 <via x="28.8" y="10.55" extent="1-16" drill="0.5"/>
 <<<<<<< HEAD
+<via x="12.8" y="5.8" extent="1-16" drill="0.5"/>
+<via x="11.2" y="27.3" extent="1-16" drill="0.5"/>
+<via x="28.85" y="26.1" extent="1-16" drill="0.5"/>
+<via x="20.85" y="37.25" extent="1-16" drill="0.5"/>
+<via x="5.45" y="47.05" extent="1-16" drill="0.5"/>
+<via x="44" y="7.1" extent="1-16" drill="0.5"/>
+<via x="45.05" y="38.4" extent="1-16" drill="0.5"/>
+<via x="9.15" y="12.3" extent="1-16" drill="0.5"/>
+=======
 <via x="11.6" y="12.15" extent="1-16" drill="0.5"/>
 <via x="11.2" y="27.3" extent="1-16" drill="0.5"/>
 <via x="28.85" y="26.1" extent="1-16" drill="0.5"/>
@@ -3293,7 +3302,6 @@ Please make sure your boards conform to these design rules.</description>
 <via x="6.6" y="45" extent="1-16" drill="0.5"/>
 <via x="44" y="7.1" extent="1-16" drill="0.5"/>
 <via x="45.05" y="38.4" extent="1-16" drill="0.5"/>
-=======
 >>>>>>> Staples
 </signal>
 <signal name="VCC">
@@ -3380,8 +3388,8 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="S1" pad="3"/>
 <contactref element="U1" pad="13"/>
 <contactref element="R1" pad="1"/>
-<wire x1="6.985" y1="12.065" x2="9.57" y2="14.65" width="0.6096" layer="16"/>
-<wire x1="9.57" y1="14.65" x2="14.45" y2="14.65" width="0.6096" layer="16"/>
+<wire x1="7.335" y1="5.265" x2="9.07" y2="5.3" width="0.6096" layer="16"/>
+<wire x1="9.07" y1="5.3" x2="14.45" y2="14.65" width="0.6096" layer="16"/>
 <via x="14.45" y="14.65" extent="1-16" drill="0.5"/>
 <wire x1="20.6" y1="17.25" x2="22.5" y2="17.25" width="0.6096" layer="1"/>
 <wire x1="22.935" y1="18.54875" x2="22.935" y2="17.985" width="0.254" layer="1"/>
