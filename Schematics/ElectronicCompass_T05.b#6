@@ -2954,9 +2954,9 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="16.03" y="28.3225" size="0.8128" layer="25"/>
 <attribute name="VALUE" x="13.4625" y="27.47" size="0.8128" layer="27" rot="R270"/>
 </element>
-<element name="C4" library="rcl" package="C0805" value="1uF" x="18.03875" y="21.7225" smashed="yes" rot="R180">
-<attribute name="NAME" x="18.05875" y="23.6525" size="0.8128" layer="25" rot="R180"/>
-<attribute name="VALUE" x="19.30875" y="24.2625" size="0.8128" layer="27" rot="R180"/>
+<element name="C4" library="rcl" package="C0805" value="1uF" x="17.73875" y="21.7225" smashed="yes" rot="R180">
+<attribute name="NAME" x="17.75875" y="23.6525" size="0.8128" layer="25" rot="R180"/>
+<attribute name="VALUE" x="19.00875" y="24.2625" size="0.8128" layer="27" rot="R180"/>
 </element>
 <element name="TP1" library="testpad" package="TP06R" value="TPTP06R" x="49.125" y="25.3475" smashed="yes" rot="MR0">
 <attribute name="TP_SIGNAL_NAME" value="" x="49.125" y="23.4425" size="1" layer="38" rot="MR0"/>
@@ -3163,9 +3163,9 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="33.7712" y="37.5662" size="0.8128" layer="26" ratio="10" rot="MR270"/>
 <attribute name="VALUE" x="38.775" y="37.49" size="0.8128" layer="28" rot="MR270"/>
 </element>
-<element name="Q5" library="transistor-npn" package="SOT23-BEC" value="BC817-16LT1SMD" x="12.65" y="17.5" smashed="yes" rot="R180">
-<attribute name="NAME" x="14.955" y="16.545" size="0.8128" layer="25" rot="R180"/>
-<attribute name="VALUE" x="14.555" y="20.675" size="0.8128" layer="27" rot="R180"/>
+<element name="Q5" library="transistor-npn" package="SOT23-BEC" value="BC817-16LT1SMD" x="12.7" y="16.05" smashed="yes" rot="R180">
+<attribute name="NAME" x="13.205" y="18.595" size="0.8128" layer="25" rot="R180"/>
+<attribute name="VALUE" x="14.605" y="19.225" size="0.8128" layer="27" rot="R180"/>
 </element>
 <element name="Q6" library="transistor-npn" package="SOT23-BEC" value="BC817-16LT1SMD" x="34.9" y="13.25" smashed="yes" rot="R180">
 <attribute name="NAME" x="38.055" y="13.595" size="0.8128" layer="25" rot="R180"/>
@@ -3271,10 +3271,14 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="22.2" y1="27.25" x2="22.85" y2="26.6" width="0.254" layer="1"/>
 <wire x1="22.85" y1="26.6" x2="22.95" y2="25.38375" width="0.254" layer="1"/>
 <wire x1="22.95" y1="25.38375" x2="22.935" y2="25.34875" width="0.254" layer="1"/>
-<wire x1="22.44875" y1="22.44875" x2="23.65" y2="24.4" width="0" layer="19" extent="1-1"/>
+<wire x1="21.535" y1="22.44875" x2="20.1" y2="22.45" width="0.254" layer="1"/>
+<wire x1="20.1" y1="22.45" x2="19.35" y2="23.3" width="0.254" layer="1"/>
+<wire x1="19.35" y1="23.3" x2="17.55" y2="23.15" width="0.254" layer="1"/>
+<wire x1="17.55" y1="23.15" x2="16.8" y2="22.85" width="0.254" layer="1"/>
+<wire x1="16.8" y1="22.85" x2="16.75" y2="21.75" width="0.254" layer="1"/>
+<wire x1="23.65" y1="24.4" x2="22.44875" y2="22.44875" width="0" layer="19" extent="1-1"/>
+<wire x1="16.0025" y1="25.25" x2="16.8" y2="22.85" width="0" layer="19" extent="1-1"/>
 <wire x1="24.2" y1="19.3" x2="22.44875" y2="22.44875" width="0" layer="19" extent="1-1"/>
-<wire x1="17.08875" y1="21.7225" x2="21.535" y2="22.44875" width="0" layer="19" extent="1-1"/>
-<wire x1="16.0025" y1="25.25" x2="17.08875" y2="21.7225" width="0" layer="19" extent="1-1"/>
 <wire x1="27.1475" y1="10.69125" x2="29.21" y2="6.35" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VCC">
@@ -3355,7 +3359,7 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="U1" pad="6"/>
 <contactref element="C4" pad="1"/>
 <wire x1="21.535" y1="21.94875" x2="18.765" y2="21.94875" width="0.254" layer="1"/>
-<wire x1="18.765" y1="21.94875" x2="18.98875" y2="21.7225" width="0.254" layer="1"/>
+<wire x1="18.765" y1="21.94875" x2="18.68875" y2="21.7225" width="0.254" layer="1"/>
 </signal>
 <signal name="RST">
 <contactref element="S1" pad="3"/>
@@ -3375,8 +3379,16 @@ Please make sure your boards conform to these design rules.</description>
 <signal name="D-">
 <contactref element="U1" pad="3"/>
 <contactref element="R3" pad="2"/>
-<wire x1="13.87" y1="23.49625" x2="13.9175" y2="23.44875" width="0.254" layer="1"/>
-<wire x1="13.9175" y1="23.44875" x2="21.535" y2="23.44875" width="0.254" layer="1"/>
+<wire x1="13.87" y1="23.49625" x2="14.6675" y2="23.49875" width="0.254" layer="1"/>
+<wire x1="18.65" y1="26.55" x2="19.85125" y2="24.54875" width="0.254" layer="1"/>
+<wire x1="19.85125" y1="24.54875" x2="20.50125" y2="23.44875" width="0.254" layer="1"/>
+<wire x1="20.50125" y1="23.44875" x2="21.535" y2="23.44875" width="0.254" layer="1"/>
+<wire x1="14.6675" y1="23.49875" x2="15.05" y2="24" width="0.254" layer="1"/>
+<wire x1="15.05" y1="24" x2="16.85" y2="24" width="0.254" layer="1"/>
+<wire x1="16.85" y1="24" x2="17.35" y2="24.3" width="0.254" layer="1"/>
+<wire x1="17.35" y1="24.3" x2="17.35" y2="26.1" width="0.254" layer="1"/>
+<wire x1="17.35" y1="26.1" x2="17.85" y2="26.55" width="0.254" layer="1"/>
+<wire x1="17.85" y1="26.55" x2="18.65" y2="26.55" width="0.254" layer="1"/>
 </signal>
 <signal name="N$12">
 <contactref element="R3" pad="1"/>
@@ -3873,9 +3885,9 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="21.535" y1="20.94875" x2="20.44875" y2="20.94875" width="0.254" layer="1"/>
 <wire x1="20.44875" y1="20.94875" x2="19.9" y2="20.4" width="0.254" layer="1"/>
 <wire x1="19.9" y1="20.4" x2="16.1" y2="20.4" width="0.254" layer="1"/>
-<wire x1="16.1" y1="20.4" x2="14.95" y2="18.65" width="0.254" layer="1"/>
-<wire x1="14.95" y1="18.65" x2="14.9" y2="18.6" width="0.254" layer="1"/>
-<wire x1="14.9" y1="18.6" x2="13.6" y2="18.6" width="0.254" layer="1"/>
+<wire x1="16.1" y1="20.4" x2="15.15" y2="19" width="0.254" layer="1"/>
+<wire x1="15.15" y1="19" x2="14.85" y2="18.6" width="0.254" layer="1"/>
+<wire x1="14.85" y1="18.6" x2="13.65" y2="17.15" width="0.254" layer="1"/>
 </signal>
 <signal name="N$39">
 <contactref element="U1" pad="22"/>
@@ -3979,8 +3991,15 @@ Please make sure your boards conform to these design rules.</description>
 <signal name="N$34">
 <contactref element="U1" pad="4"/>
 <contactref element="R2" pad="2"/>
-<wire x1="13.85875" y1="21.31875" x2="15.48875" y2="22.94875" width="0.254" layer="1"/>
-<wire x1="15.48875" y1="22.94875" x2="21.535" y2="22.94875" width="0.254" layer="1"/>
+<wire x1="13.85875" y1="21.31875" x2="14.8" y2="21.35" width="0.254" layer="1"/>
+<wire x1="14.8" y1="21.35" x2="15.45" y2="23.45" width="0.254" layer="1"/>
+<wire x1="15.45" y1="23.45" x2="16.95" y2="23.45" width="0.254" layer="1"/>
+<wire x1="16.95" y1="23.45" x2="17.8" y2="23.95" width="0.254" layer="1"/>
+<wire x1="17.8" y1="23.95" x2="17.8" y2="25.6" width="0.254" layer="1"/>
+<wire x1="17.8" y1="25.6" x2="18" y2="25.9" width="0.254" layer="1"/>
+<wire x1="18" y1="25.9" x2="18.45" y2="25.9" width="0.254" layer="1"/>
+<wire x1="18.45" y1="25.9" x2="20.25" y2="22.95" width="0.254" layer="1"/>
+<wire x1="20.25" y1="22.95" x2="21.535" y2="22.94875" width="0.254" layer="1"/>
 </signal>
 <signal name="N$1">
 <contactref element="U$1" pad="P8"/>
@@ -4010,7 +4029,7 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="Q5" pad="C"/>
 <contactref element="R7" pad="1"/>
 <contactref element="Q3" pad="1"/>
-<wire x1="12.65" y1="16.4" x2="12.65" y2="13.05" width="0.254" layer="1"/>
+<wire x1="12.7" y1="14.95" x2="12.65" y2="13.05" width="0.254" layer="1"/>
 <wire x1="12.65" y1="13.05" x2="17.5" y2="8.2" width="0.254" layer="1"/>
 <wire x1="17.5" y1="8.2" x2="22.4" y2="8.2" width="0.254" layer="1"/>
 <wire x1="22.4" y1="8.2" x2="23.45" y2="9.25" width="0.254" layer="1"/>

@@ -3276,10 +3276,22 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="19.35" y1="23.3" x2="17.55" y2="23.15" width="0.254" layer="1"/>
 <wire x1="17.55" y1="23.15" x2="16.8" y2="22.85" width="0.254" layer="1"/>
 <wire x1="16.8" y1="22.85" x2="16.75" y2="21.75" width="0.254" layer="1"/>
-<wire x1="23.65" y1="24.4" x2="22.44875" y2="22.44875" width="0" layer="19" extent="1-1"/>
-<wire x1="16.0025" y1="25.25" x2="16.8" y2="22.85" width="0" layer="19" extent="1-1"/>
-<wire x1="24.2" y1="19.3" x2="22.44875" y2="22.44875" width="0" layer="19" extent="1-1"/>
-<wire x1="27.1475" y1="10.69125" x2="29.21" y2="6.35" width="0" layer="19" extent="1-1"/>
+<via x="14.05" y="19.45" extent="1-16" drill="0.5"/>
+<wire x1="11.75" y1="17.15" x2="11.75" y2="19.35" width="0.254" layer="1"/>
+<wire x1="11.75" y1="19.35" x2="14.05" y2="19.45" width="0.254" layer="1"/>
+<via x="14" y="25.95" extent="1-16" drill="0.5"/>
+<via x="22.55" y="22.45" extent="1-16" drill="0.5"/>
+<via x="25" y="24.1" extent="1-16" drill="0.5"/>
+<via x="25.2" y="19.75" extent="1-16" drill="0.5"/>
+<wire x1="24.2" y1="19.3" x2="25.2" y2="19.75" width="0.254" layer="1"/>
+<via x="28.8" y="10.55" extent="1-16" drill="0.5"/>
+<via x="11.6" y="12.15" extent="1-16" drill="0.5"/>
+<via x="11.2" y="27.3" extent="1-16" drill="0.5"/>
+<via x="28.85" y="26.1" extent="1-16" drill="0.5"/>
+<via x="20.85" y="37.25" extent="1-16" drill="0.5"/>
+<via x="6.6" y="45" extent="1-16" drill="0.5"/>
+<via x="44" y="7.1" extent="1-16" drill="0.5"/>
+<via x="45.05" y="38.4" extent="1-16" drill="0.5"/>
 </signal>
 <signal name="VCC">
 <contactref element="R1" pad="2"/>
