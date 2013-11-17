@@ -3271,8 +3271,13 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="22.2" y1="27.25" x2="22.85" y2="26.6" width="0.254" layer="1"/>
 <wire x1="22.85" y1="26.6" x2="22.95" y2="25.38375" width="0.254" layer="1"/>
 <wire x1="22.95" y1="25.38375" x2="22.935" y2="25.34875" width="0.254" layer="1"/>
+<<<<<<< HEAD
 <wire x1="22.44875" y1="22.44875" x2="24.2" y2="19.3" width="0" layer="19" extent="1-1"/>
 <wire x1="23.65" y1="24.4" x2="22.44875" y2="22.44875" width="0" layer="19" extent="1-1"/>
+=======
+<wire x1="22.44875" y1="22.44875" x2="23.65" y2="24.4" width="0" layer="19" extent="1-1"/>
+<wire x1="24.2" y1="19.3" x2="22.44875" y2="22.44875" width="0" layer="19" extent="1-1"/>
+>>>>>>> Staples
 <wire x1="16.43875" y1="21.6725" x2="21.535" y2="22.44875" width="0" layer="19" extent="1-1"/>
 <wire x1="16.85" y1="25.0975" x2="16.43875" y2="21.6725" width="0" layer="19" extent="1-1"/>
 <wire x1="27.1475" y1="10.69125" x2="29.21" y2="6.35" width="0" layer="19" extent="1-1"/>
