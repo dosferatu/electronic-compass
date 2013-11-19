@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -92,8 +92,8 @@
 <pin name="OVI" x="-25.4" y="-17.78" visible="pin" length="middle" rot="R90"/>
 <pin name="OVP" x="-17.78" y="-17.78" visible="pin" length="middle" rot="R90"/>
 <pin name="PROG" x="22.86" y="17.78" visible="pin" length="middle" rot="R270"/>
-<pin name="GATE" x="7.62" y="17.78" visible="pin" length="middle" rot="R270"/>
-<pin name="BAT" x="-7.62" y="17.78" visible="pin" length="middle" rot="R270"/>
+<pin name="GATE" x="-7.62" y="17.78" visible="pin" length="middle" rot="R270"/>
+<pin name="BAT" x="7.62" y="17.78" visible="pin" length="middle" rot="R270"/>
 <pin name="OUT" x="-22.86" y="17.78" visible="pin" length="middle" rot="R270"/>
 <pin name="IN" x="-2.54" y="-17.78" visible="pin" length="middle" rot="R90"/>
 <pin name="GND" x="35.56" y="0" length="middle" rot="R180"/>
