@@ -3293,6 +3293,43 @@ Please make sure your boards conform to these design rules.</description>
 <via x="44" y="7.1" extent="1-16" drill="0.5"/>
 <via x="45.05" y="38.4" extent="1-16" drill="0.5"/>
 <via x="9.15" y="12.3" extent="1-16" drill="0.5"/>
+<via x="2.85" y="12.2" extent="1-16" drill="0.5"/>
+<via x="2.7" y="2.2" extent="1-16" drill="0.5"/>
+<via x="9.2" y="2.1" extent="1-16" drill="0.5"/>
+<via x="16.7" y="1.9" extent="1-16" drill="0.5"/>
+<via x="23.9" y="1.9" extent="1-16" drill="0.5"/>
+<via x="30.25" y="1.7" extent="1-16" drill="0.5"/>
+<via x="37.35" y="1.9" extent="1-16" drill="0.5"/>
+<via x="43.95" y="1.9" extent="1-16" drill="0.5"/>
+<via x="6.1" y="33.65" extent="1-16" drill="0.5"/>
+<via x="10.65" y="35.05" extent="1-16" drill="0.5"/>
+<via x="38.65" y="33.6" extent="1-16" drill="0.5"/>
+<via x="45.85" y="32.9" extent="1-16" drill="0.5"/>
+<via x="42.85" y="47.25" extent="1-16" drill="0.5"/>
+<via x="12" y="46.6" extent="1-16" drill="0.5"/>
+<via x="2" y="48.65" extent="1-16" drill="0.5"/>
+<via x="2.1" y="35.8" extent="1-16" drill="0.5"/>
+<via x="6.1" y="27.45" extent="1-16" drill="0.5"/>
+<via x="6.1" y="14.55" extent="1-16" drill="0.5"/>
+<via x="39.1" y="12.65" extent="1-16" drill="0.5"/>
+<via x="47.6" y="47.9" extent="1-16" drill="0.5"/>
+<via x="4.2" y="38.4" extent="1-16" drill="0.5"/>
+<via x="12.65" y="38.5" extent="1-16" drill="0.5"/>
+<via x="15.75" y="41" extent="1-16" drill="0.5"/>
+<via x="12.3" y="41.4" extent="1-16" drill="0.5"/>
+<via x="45.85" y="30.35" extent="1-16" drill="0.5"/>
+<via x="36.9" y="27.8" extent="1-16" drill="0.5"/>
+<via x="34.25" y="25.95" extent="1-16" drill="0.5"/>
+<via x="43.1" y="13.95" extent="1-16" drill="0.5"/>
+<via x="31.8" y="11.25" extent="1-16" drill="0.5"/>
+<via x="23.3" y="13.7" extent="1-16" drill="0.5"/>
+<via x="9.3" y="30.2" extent="1-16" drill="0.5"/>
+<via x="19.6" y="30.8" extent="1-16" drill="0.5"/>
+<via x="37.8" y="38.65" extent="1-16" drill="0.5"/>
+<via x="24.95" y="21.9" extent="1-16" drill="0.5"/>
+<via x="22.55" y="20.6" extent="1-16" drill="0.5"/>
+<via x="39.5" y="8.1" extent="1-16" drill="0.5"/>
+<via x="39.15" y="17.55" extent="1-16" drill="0.5"/>
 </signal>
 <signal name="VCC">
 <contactref element="R1" pad="2"/>

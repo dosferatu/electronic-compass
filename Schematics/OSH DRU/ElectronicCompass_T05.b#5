@@ -3285,7 +3285,6 @@ Please make sure your boards conform to these design rules.</description>
 <via x="25.2" y="19.75" extent="1-16" drill="0.5"/>
 <wire x1="24.2" y1="19.3" x2="25.2" y2="19.75" width="0.254" layer="1"/>
 <via x="28.8" y="10.55" extent="1-16" drill="0.5"/>
-<<<<<<< HEAD
 <via x="12.8" y="5.8" extent="1-16" drill="0.5"/>
 <via x="11.2" y="27.3" extent="1-16" drill="0.5"/>
 <via x="28.85" y="26.1" extent="1-16" drill="0.5"/>
@@ -3294,15 +3293,6 @@ Please make sure your boards conform to these design rules.</description>
 <via x="44" y="7.1" extent="1-16" drill="0.5"/>
 <via x="45.05" y="38.4" extent="1-16" drill="0.5"/>
 <via x="9.15" y="12.3" extent="1-16" drill="0.5"/>
-=======
-<via x="11.6" y="12.15" extent="1-16" drill="0.5"/>
-<via x="11.2" y="27.3" extent="1-16" drill="0.5"/>
-<via x="28.85" y="26.1" extent="1-16" drill="0.5"/>
-<via x="20.85" y="37.25" extent="1-16" drill="0.5"/>
-<via x="6.6" y="45" extent="1-16" drill="0.5"/>
-<via x="44" y="7.1" extent="1-16" drill="0.5"/>
-<via x="45.05" y="38.4" extent="1-16" drill="0.5"/>
->>>>>>> Staples
 </signal>
 <signal name="VCC">
 <contactref element="R1" pad="2"/>
