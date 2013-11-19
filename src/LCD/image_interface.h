@@ -13,27 +13,17 @@
 */
 
 // Image processing class
-class image_processing
+class image_interface
 {
     public:
         // Functions for editing the image
-        load_proc_img(unsigned char [][] new_img);          // Pass it the desired base image of the appropriate size in hex format
-        edit_working_img(unsigned char * new_part, int byte_x, int byte_y);         // Pass it a new part of
-
-
-        // Letters & Numbers
-        const unsigned char Letters [][7] = {
-        {0xFF, 0x08, 0x30, 0x30, 0xC0, 0x00, 0xFF},
-        {0x07, 0x00, 0x00, 0x00, 0x00, 0x03, 0x07},
-        {0x0E, 0x11, 0x11, 0x11, 0x11, 0x11, 0xE0},
-        {0x00, 0x04, 0x04, 0x04, 0x04, 0x04, 0x03},
-        {0xFF, 0x41, 0x41, 0x41, 0x41, 0x41, 0x01},
-        {0x07, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04},
-        {0x7F, 0xC0, 0x80, 0xF0, 0x80, 0xC0, 0x7F},
-        {0x00, 0x01, 0x07, 0x00, 0x07, 0x01, 0x00}};
+        void initialize_img(unsigned char * [][]);                                  // Pass it the desired base image of the appropriate size in hex format
+        void edit_working_img(unsigned char wrk_img * [][], int top_left_coord);                     // Pass it a new part of the image with the coordinates of where to put it
+        void convert_img (unsigned char img_arrays * [][]);                                       // Converts the working image into the processing image
 
     private:
-        // Arrays
-        unsigned char proc_img [6][84];              // Array for holding the currently processing image
-        unsigned char working_img [6][84];           // Array for holding the working image
+        unsigned char processing_img * [6][84];                                     // Array for holding the currently processing image
+        unsigned char working_img * [48][84];                                                // Array for holding the working image
+
+
 };
