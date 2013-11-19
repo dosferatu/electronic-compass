@@ -23,7 +23,7 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
-#include "ascii.h"
+#include "image_parts.h"
 
 #define LCD_SCE_HI		PORTF |= (1<<4)
 #define LCD_SCE_LO		PORTF &= ~(1<<4)
