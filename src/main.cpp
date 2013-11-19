@@ -8,24 +8,18 @@
  * results to display values for the LCD.
  */
 
-#define stuff PORTD
-
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include <stdlib.h>
 #include <util/delay.h>
-#include "LSM303/LSM303.h"
-//#include "images.h"
-
-extern "C"
-{
-  #include "glcd/glcd.h"
-}
-
-
-void BlinkLED(int);
+#include "LSM303DLH/LSM303DLH.h"
+#include "PCD8544/PCD8544.h"
 
 int main()
 {
+  PCD8544 display;
+  LSM303DLH compass;
+
   // Normal power, all axes enabled
   int headingValue = 0x00;
 
@@ -33,44 +27,23 @@ int main()
   DDRD = 0x10;
   PORTD = 0x00;
 
-  // Set PC as an output low
-  DDRF = 0x20;
-  PORTF = 0x00;
+  // Initialize the LSM303
+  compass.InitLSM303DLH();
 
-  // Set the TWI master to initial standby state
-  //TWI_Master_Initialise();
-
-  // Enable interrupts
-  //sei();
-
-  // Initialize the device
-  EnableDefaults();
-  
-  //GetMagStatus();
+  // Initialize the Nokia 5110
+  display.InitPCD8544();
 
   while(true)
   {
-  //glcd_test_circles();
-    //Turn the LED off
-    //PORTD = 0x00;
+    display.ClearDisplay();
 
-    //BlinkLED(ReadHeading());
-
-    //Check mag status reg for DRDY (bit 0) and do a
-    //reading if it is set.
-    //if (GetMagStatus() & 0x1)
-    //{
-    headingValue = ReadHeading();
+    headingValue = compass.ReadHeading();
 
     if (headingValue >= 0 && headingValue <= 360)
-      BlinkLED(headingValue / 10);
-    //PORTD = 0x10;
-    //else
-    //PORTD = 0x00;
+      compass.BlinkLED(headingValue / 10);
 
     // Write to display here
-    //}
+    display.WriteDisplay(headingValue);
   }
   return 0;
 }
-

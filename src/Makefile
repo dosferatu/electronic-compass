@@ -79,20 +79,13 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC =	glcd/glcd.c\
-	glcd/graphs.c\
-	glcd/graphics.c\
-	glcd/unit_tests.c\
-	glcd/text.c\
-	glcd/text_tiny.c\
-	glcd/controllers/PCD8544.c\
-	glcd/devices/AVR8.c
-# glcd/graphs.c not included because the code is broken and I don't need to fix it for the project.
+SRC =	
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC =	$(TARGET).cpp\
-		LSM303/LSM303.cpp
+		LSM303DLH/LSM303DLH.cpp\
+		PCD8544/PCD8544.cpp
 
 
 # List Assembler source files here.

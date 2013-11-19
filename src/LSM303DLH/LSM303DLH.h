@@ -174,26 +174,30 @@
 #define cal_y_max	96
 #define cal_z_max	381
 
-//extern "C"
-//{
-  //#include "TWI_Master.h"
-//}
-
+// Vector to store coordinates
 struct vector
 {
   float x, y, z;
 };
 
-// LSM303 interfaces I felt like implementing
-void EnableDefaults();
-unsigned char GetMagStatus();
-int ReadHeading();
+class LSM303DLH
+{
+  public:
 
-// Vector calculations used in the ReadHeading() function
-float VectorDot(const vector*, const vector*);
-void VectorCross(const vector*, const vector*, vector*);
-void VectorNormalize(vector*);
+    LSM303DLH();
+    ~LSM303DLH();
 
-void BlinkLED(int);
+    // LSM303DLH methods
+    void InitLSM303DLH();
+    int ReadHeading();
+    
+    // For debugging
+    void BlinkLED(int);
 
+  private:
+    // Vector calculations used in the ReadHeading() function
+    float VectorDot(const vector*, const vector*);
+    void VectorCross(const vector*, const vector*, vector*);
+    void VectorNormalize(vector*);
+};
 #endif
