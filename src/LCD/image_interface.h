@@ -18,12 +18,10 @@ class image_interface
     public:
         // Functions for editing the image
         void initialize_img(unsigned char * [][]);                                  // Pass it the desired base image of the appropriate size in hex format
-        void edit_working_img(unsigned char wrk_img * [][], int top_left_coord);                     // Pass it a new part of the image with the coordinates of where to put it
-        void convert_img (unsigned char img_arrays * [][]);                                       // Converts the working image into the processing image
+        void edit_working_img(unsigned char wrk_img * [][], int top_left_coord);    // Pass it a new part of the image with the coordinates of where to put it
+        void convert_img (unsigned char img_arrays * [][]);                         // Converts the working image into the processing image
 
     private:
         unsigned char processing_img * [6][84];                                     // Array for holding the currently processing image
-        unsigned char working_img * [48][84];                                                // Array for holding the working image
-
-
+        unsigned char working_img * [48][84];                                       // Array for holding the working image
 };
