@@ -3291,6 +3291,7 @@ Please make sure your boards conform to these design rules.</description>
 <via x="38.6" y="13.05" extent="1-16" drill="0.5"/>
 <via x="15.05" y="12.65" extent="1-16" drill="0.5"/>
 <via x="15.3" y="17.15" extent="1-16" drill="0.5"/>
+<via x="14.95" y="10.4" extent="1-16" drill="0.5"/>
 </signal>
 <signal name="VCC">
 <contactref element="R1" pad="2"/>
@@ -4007,17 +4008,21 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="Q5" pad="C"/>
 <contactref element="R7" pad="1"/>
 <contactref element="Q3" pad="1"/>
-<wire x1="17.5" y1="8.2" x2="22.4" y2="8.2" width="0.254" layer="1"/>
-<wire x1="22.4" y1="8.2" x2="23.45" y2="9.25" width="0.254" layer="1"/>
-<wire x1="23.45" y1="9.25" x2="23.45" y2="11.4025" width="0.254" layer="1"/>
-<wire x1="23.45" y1="11.4025" x2="23.445" y2="11.4075" width="0.254" layer="1"/>
-<wire x1="23.45" y1="9.25" x2="24.05" y2="8.75" width="0.254" layer="1"/>
-<wire x1="24.05" y1="8.75" x2="35.05" y2="8.75" width="0.254" layer="1"/>
-<wire x1="35.05" y1="8.75" x2="36.35" y2="7.35" width="0.254" layer="1"/>
-<wire x1="36.35" y1="7.35" x2="37.11" y2="7.35" width="0.254" layer="1"/>
-<wire x1="37.11" y1="7.35" x2="37.15" y2="7.31" width="0.254" layer="1"/>
-<wire x1="17.5" y1="8.2" x2="14.15" y2="11.55" width="0.254" layer="1"/>
-<wire x1="14.15" y1="11.55" x2="11.75" y2="11.55" width="0.254" layer="1"/>
+<wire x1="11.75" y1="11.55" x2="11.8" y2="11.5" width="0.254" layer="1"/>
+<wire x1="11.8" y1="11.5" x2="15" y2="11.5" width="0.254" layer="1"/>
+<wire x1="15" y1="11.5" x2="18.2" y2="8.3" width="0.254" layer="1"/>
+<wire x1="18.2" y1="8.3" x2="20.3" y2="8.3" width="0.254" layer="1"/>
+<wire x1="20.3" y1="8.3" x2="20.65" y2="8.65" width="0.254" layer="1"/>
+<wire x1="20.65" y1="8.65" x2="22" y2="8.65" width="0.254" layer="1"/>
+<wire x1="22" y1="8.65" x2="23.45" y2="10.1" width="0.254" layer="1"/>
+<wire x1="23.45" y1="10.1" x2="23.445" y2="10.105" width="0.254" layer="1"/>
+<wire x1="23.445" y1="10.105" x2="23.445" y2="11.4075" width="0.254" layer="1"/>
+<wire x1="23.45" y1="10.1" x2="23.85" y2="9.7" width="0.254" layer="1"/>
+<wire x1="23.85" y1="9.7" x2="23.85" y2="8.85" width="0.254" layer="1"/>
+<wire x1="23.85" y1="8.85" x2="24.05" y2="8.65" width="0.254" layer="1"/>
+<wire x1="24.05" y1="8.65" x2="34.85" y2="8.65" width="0.254" layer="1"/>
+<wire x1="34.85" y1="8.65" x2="36.19" y2="7.31" width="0.254" layer="1"/>
+<wire x1="36.19" y1="7.31" x2="37.15" y2="7.31" width="0.254" layer="1"/>
 </signal>
 <signal name="N$26">
 <contactref element="R10" pad="2"/>

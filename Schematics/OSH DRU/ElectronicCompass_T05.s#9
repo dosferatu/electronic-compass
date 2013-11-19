@@ -14104,10 +14104,12 @@ Group Members:
 <pinref part="U1" gate="G$1" pin="AVCC@24"/>
 <pinref part="U1" gate="G$1" pin="AVCC@44"/>
 <pinref part="P+2" gate="1" pin="VCC"/>
-<wire x1="124.46" y1="45.72" x2="124.46" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="45.72" x2="124.46" y2="20.32" width="0.1524" layer="91"/>
 <pinref part="C7" gate="G$1" pin="1"/>
+<wire x1="124.46" y1="20.32" x2="124.46" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="124.46" y1="15.24" x2="96.52" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="96.52" y1="15.24" x2="96.52" y2="10.16" width="0.1524" layer="91"/>
+<junction x="124.46" y="20.32"/>
 </segment>
 </net>
 <net name="UCAP" class="0">
