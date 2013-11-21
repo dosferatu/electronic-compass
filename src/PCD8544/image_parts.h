@@ -1,7 +1,7 @@
 /* This file stores the application specific imagery for use with the LCD.
-    It will have the image parts stored in byte arrays that it will pass
-    through the image_interface which will update the image appropriately.
-*/
+ *  It will have the image parts stored in byte arrays that it will pass
+ *  through the image_interface which will update the image appropriately.
+ */
 
 // Letters & Numbers (7 bits wide X 11 bits high)
 static unsigned char Letters [][7] = {
