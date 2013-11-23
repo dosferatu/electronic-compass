@@ -14,9 +14,4 @@ static unsigned char Letters [][7] = {
     {0x7F, 0xC0, 0x80, 0xF0, 0x80, 0xC0, 0x7F},         // W Top
     {0x00, 0x01, 0x07, 0x00, 0x07, 0x01, 0x00}};        // W Bottom
 
-// This structure is used by the system to setup an array of coordinate pairs for appropriate changes
-struct coordinate_pair
-{
-    int x;
-    int y;
-};
+
