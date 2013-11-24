@@ -22,11 +22,6 @@ void LSM303DLH::InitLSM303DLH()
   // Enable the TWI
   // Set the baud rate to 400KHz (fast mode)
   TWBR = TWI_TWBR;                          // Set the bit rate register for 400KHz
-  //TWDR = 0xFF;                              // Default content = SDA released
-  //TWCR =  (1<<TWEN)|                        // Enable TWI and release TWI pins
-          //(0<<TWIE)|(0<<TWINT)|             // Disable interrupts
-          //(0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // No signal requests
-          //(0<<TWWC);
           
   /*
    * We wish to write one byte (0x27) to the accel config register

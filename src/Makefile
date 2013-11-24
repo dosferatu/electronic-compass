@@ -85,7 +85,8 @@ SRC =
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC =	$(TARGET).cpp\
 		LSM303DLH/LSM303DLH.cpp\
-		PCD8544/PCD8544.cpp
+		PCD8544/PCD8544.cpp\
+		PCD8544/IDisplay.cpp
 
 
 # List Assembler source files here.

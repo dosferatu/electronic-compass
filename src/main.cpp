@@ -13,11 +13,11 @@
 #include <stdlib.h>
 #include <util/delay.h>
 #include "LSM303DLH/LSM303DLH.h"
-#include "PCD8544/PCD8544.h"
+#include "PCD8544/IDisplay.h"
 
 int main()
 {
-  PCD8544 display;
+  IDisplay display;
   LSM303DLH compass;
 
   // Normal power, all axes enabled
@@ -31,19 +31,17 @@ int main()
   compass.InitLSM303DLH();
 
   // Initialize the Nokia 5110
-  display.InitPCD8544();
+  display.InitDisplay();
 
   while(true)
   {
-    display.ClearDisplay();
-
     headingValue = compass.ReadHeading();
 
     if (headingValue >= 0 && headingValue <= 360)
       compass.BlinkLED(headingValue / 10);
 
     // Write to display here
-    display.WriteDisplay(headingValue);
+    display.DisplayHeading(headingValue);
   }
   return 0;
 }
