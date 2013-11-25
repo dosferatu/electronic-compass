@@ -13,11 +13,11 @@
 #include <stdlib.h>
 #include <util/delay.h>
 #include "LSM303DLH/LSM303DLH.h"
-#include "PCD8544/IDisplay.h"
+#include "PCD8544/PCD8544.h"
 
 int main()
 {
-  IDisplay display;
+  PCD8544 display;
   LSM303DLH compass;
 
   // Normal power, all axes enabled
@@ -31,7 +31,7 @@ int main()
   compass.InitLSM303DLH();
 
   // Initialize the Nokia 5110
-  display.InitDisplay();
+  display.InitPCD8544();
 
   while(true)
   {

@@ -85,8 +85,7 @@ SRC =
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC =	$(TARGET).cpp\
 		LSM303DLH/LSM303DLH.cpp\
-		PCD8544/PCD8544.cpp\
-		PCD8544/IDisplay.cpp
+		PCD8544/PCD8544.cpp
 
 
 # List Assembler source files here.
@@ -339,7 +338,7 @@ DEBUG_HOST = localhost
 
 # Define programs and commands.
 SHELL = sh
-CC = avr-gcc
+CC = avr-g++
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size

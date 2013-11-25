@@ -25,16 +25,17 @@
 #include <util/delay.h>
 #include "image_parts.h"
 
+#define LCD_SCE                     PORTF |= (1<<4)
 #define LCD_SCE_HI		    PORTF |= (1<<4)
 #define LCD_SCE_LO		    PORTF &= ~(1<<4)
+#define LCD_RST                     PORTF |= (1<<7)
 #define LCD_RST_HI		    PORTF |= (1<<7)
 #define LCD_RST_LO		    PORTF &= ~(1<<7)
+#define LCD_DC                      PORTF |= (1<<6)
 #define LCD_DC_HI		    PORTF |= (1<<6)
 #define LCD_DC_LO		    PORTF &= ~(1<<6)
-#define LCD_DN_HI		    PORTB |= (1<<2)
-#define LCD_DN_LO		    PORTB &= ~(1<<2)
-#define LCD_SCLK_HI		    PORTB |= (1<<1)
-#define LCD_SCLK_LO		    PORTB &= ~(1<<1)
+#define LCD_SDIN                    PORTB |= (1<<2)
+#define LCD_SCLK		    PORTB |= (1<<1)
 #define LCD_BACKLIGHT_HI	PORTF |= (1<<5)
 #define LCD_BACKLIGHT_LO	PORTF &= ~(1<<5)
 
@@ -44,9 +45,10 @@
 #define LCD_WIDTH	        84
 #define LCD_HEIGHT	        48
 
-// Image processing class
-
-// This structure is used by the system to setup an array of coordinate pairs for appropriate changes
+/*
+ * This structure is used by the system to setup an array of coordinate pairs
+ * for appropriate changes
+ */
 struct coordinate_pair
 {
     int x;
@@ -56,22 +58,18 @@ struct coordinate_pair
 class PCD8544
 {
     public:
-        PCD8544();                                      // Constructor
-        ~PCD8544();                                     // Deconstructor
-        void InitPCD8544();                             // Initialize the display for use
-        void ClearDisplay();                            // Clears the display
-        void WriteDisplay();                            // Write image to display
-        void LoadImage(unsigned char base_img[][]);     // Loads base image to proc_img and working_img
-        void EditImage(unsigned char new_img[][], coordinate_pair coords);
-                                                        // Edits image with a smaller image that can be placed anywhere within
-                                                        //  the base image by giving it a coordinate of where the change
-                                                        //  needs to be made.  User must verify the image will stay within
-                                                        //  the bounds of the LCD.
-
-        void ConvertImage();                            // Converts 48x84 working image to 6x84 processing image.  Will be called
-                                                        //  by the user when all edits to the working image have been completed
+        PCD8544();
+        ~PCD8544();
+        void InitPCD8544();
+        void ClearDisplay();
+        void ConvertImage();
+        void DisplayHeading(int);
+        void EditImage(unsigned char new_img, coordinate_pair coords);
+        void LoadImage(unsigned char base_img);
+        void SendCommand(uint8_t);
+        void WriteDisplay();
 
     private:
-        unsigned char proc_img[6][84];                  // Array for holding the currently processing image
-        unsigned char working_img[48][84];              // Array for holding the working image
+        unsigned char proc_img[6][84];
+        unsigned char working_img[48][84];
 };
