@@ -8,9 +8,7 @@
  * results to display values for the LCD.
  */
 
-#include <avr/interrupt.h>
 #include <avr/io.h>
-#include <stdlib.h>
 #include <util/delay.h>
 #include "LSM303DLH/LSM303DLH.h"
 #include "PCD8544/PCD8544.h"
@@ -23,25 +21,33 @@ int main()
   // Normal power, all axes enabled
   int headingValue = 0x00;
 
-  // Set PD4 as an output low
-  DDRD = 0x10;
-  PORTD = 0x00;
+  // Set PD4 as an output low for the debug LED
+  DDRD |= (1<<PD4);
+  PORTD |= ~(1<<PD4);
 
-  // Initialize the LSM303
-  compass.InitLSM303DLH();
+  // Set PB0 (SS) as an output HIGH
+  DDRB |= (1<<PB0);
+  PORTB |= (1<<PB0);
+
+  // Power on the compass and the display
+  DDRB |= (1<<PB6);
+  PORTB |= (1<<PB6);
 
   // Initialize the Nokia 5110
   display.InitPCD8544();
+
+  // Initialize the LSM303
+  compass.InitLSM303DLH();
 
   while(true)
   {
     headingValue = compass.ReadHeading();
 
+    // Try to avoid erroneous readings
     if (headingValue >= 0 && headingValue <= 360)
       compass.BlinkLED(headingValue / 10);
-
-    // Write to display here
     display.DisplayHeading(headingValue);
   }
+
   return 0;
 }

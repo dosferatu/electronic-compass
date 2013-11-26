@@ -20,10 +20,8 @@
  */
 
 #include <avr/io.h>
-#include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include <util/delay.h>
-#include "image_parts.h"
+//#include "image_parts.h"
 
 #define LCD_SCE                     PORTF |= (1<<4)
 #define LCD_SCE_HI		    PORTF |= (1<<4)
@@ -36,8 +34,11 @@
 #define LCD_DC_LO		    PORTF &= ~(1<<6)
 #define LCD_SDIN                    PORTB |= (1<<2)
 #define LCD_SCLK		    PORTB |= (1<<1)
-#define LCD_BACKLIGHT_HI	PORTF |= (1<<5)
-#define LCD_BACKLIGHT_LO	PORTF &= ~(1<<5)
+#define LCD_VDD                     PORTB |= (1<<0)
+#define LCD_VDD_HI                  PORTB |= ~(1<<0)
+#define LCD_VDD_LO                  PORTB |= ~(1<<0)
+#define LCD_BACKLIGHT_HI	    PORTF |= (1<<5)
+#define LCD_BACKLIGHT_LO	    PORTF &= ~(1<<5)
 
 #define LCD_C               0
 #define LCD_D               1
@@ -64,12 +65,12 @@ class PCD8544
         void ClearDisplay();
         void ConvertImage();
         void DisplayHeading(int);
-        void EditImage(unsigned char new_img, coordinate_pair coords);
-        void LoadImage(unsigned char base_img);
+        //void EditImage(unsigned char new_img, coordinate_pair coords);
+        //void LoadImage(unsigned char base_img);
         void SendCommand(uint8_t);
-        void WriteDisplay();
+        void WriteDisplay(uint8_t);
 
     private:
-        unsigned char proc_img[6][84];
-        unsigned char working_img[48][84];
+        unsigned char proc_img[][84] PROGMEM;
+        unsigned char working_img[][84] PROGMEM;
 };
