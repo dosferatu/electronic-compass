@@ -43,11 +43,9 @@ int main()
   {
     headingValue = compass.ReadHeading();
 
-    // Try to avoid erroneous readings
-    if (headingValue >= 0 && headingValue <= 360)
-      compass.BlinkLED(headingValue / 10);
     display.DisplayHeading(headingValue);
-    display.ClearDisplay();
+    //compass.BlinkLED(headingValue / 10);
+    _delay_ms(1);
   }
 
   return 0;

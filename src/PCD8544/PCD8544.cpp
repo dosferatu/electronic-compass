@@ -35,18 +35,14 @@ void PCD8544::InitPCD8544()
   SendCommand(0x23);
   
   // Set Vop to (a + 16 * b)
-  /* CHANGE THIS TO SUIT OUR MUX RATE */
-  /* NEED TO SET [BS2:BS0] TO CORRECT BIAS FOR MUX RATE */
-  // Taken from SparkFun arduino sketch
-  SendCommand(0xB1);
+  SendCommand(0x90);
 
   // Set temp coefficient
   // Taken from SparkFun arduino sketch
   SendCommand(0x04);
 
   // LCD Bias
-  // Taken from SparkFun arduino sketch
-  SendCommand(0x14);
+  SendCommand(0x13);
   
   // Set to normal instruction set
   SendCommand(0x22);
