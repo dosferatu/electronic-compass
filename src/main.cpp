@@ -47,6 +47,7 @@ int main()
     if (headingValue >= 0 && headingValue <= 360)
       compass.BlinkLED(headingValue / 10);
     display.DisplayHeading(headingValue);
+    display.ClearDisplay();
   }
 
   return 0;

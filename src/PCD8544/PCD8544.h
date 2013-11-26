@@ -21,24 +21,24 @@
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>
-//#include "image_parts.h"
+#include "image_parts.h"
 
-#define LCD_SCE                     PORTF |= (1<<4)
-#define LCD_SCE_HI		    PORTF |= (1<<4)
-#define LCD_SCE_LO		    PORTF &= ~(1<<4)
-#define LCD_RST                     PORTF |= (1<<7)
-#define LCD_RST_HI		    PORTF |= (1<<7)
-#define LCD_RST_LO		    PORTF &= ~(1<<7)
-#define LCD_DC                      PORTF |= (1<<6)
-#define LCD_DC_HI		    PORTF |= (1<<6)
-#define LCD_DC_LO		    PORTF &= ~(1<<6)
-#define LCD_SDIN                    PORTB |= (1<<2)
-#define LCD_SCLK		    PORTB |= (1<<1)
-#define LCD_VDD                     PORTB |= (1<<0)
-#define LCD_VDD_HI                  PORTB |= ~(1<<0)
-#define LCD_VDD_LO                  PORTB |= ~(1<<0)
-#define LCD_BACKLIGHT_HI	    PORTF |= (1<<5)
-#define LCD_BACKLIGHT_LO	    PORTF &= ~(1<<5)
+#define LCD_SCE                     PORTF |= (1<<PF4)
+#define LCD_SCE_HI		    PORTF |= (1<<PF4)
+#define LCD_SCE_LO		    PORTF &= ~(1<<PF4)
+#define LCD_RST                     PORTF |= (1<<PF7)
+#define LCD_RST_HI		    PORTF |= (1<<PF7)
+#define LCD_RST_LO		    PORTF &= ~(1<<PF7)
+#define LCD_DC                      PORTF |= (1<<PF6)
+#define LCD_DC_HI		    PORTF |= (1<<PF6)
+#define LCD_DC_LO		    PORTF &= ~(1<<PF6)
+#define LCD_SDIN                    PORTB |= (1<<PB2)
+#define LCD_SCLK		    PORTB |= (1<<PB1)
+#define LCD_VDD                     PORTB |= (1<<PB0)
+#define LCD_VDD_HI                  PORTB |= ~(1<<PB0)
+#define LCD_VDD_LO                  PORTB |= ~(1<<PB0)
+#define LCD_BACKLIGHT_HI	    PORTF |= (1<<PF5)
+#define LCD_BACKLIGHT_LO	    PORTF &= ~(1<<PF5)
 
 #define LCD_C               0
 #define LCD_D               1
@@ -71,6 +71,9 @@ class PCD8544
         void WriteDisplay(uint8_t);
 
     private:
+        // Temporary functions to print string to LCD
+        void DisplayCharacter(char);
+        void DisplayString(char*);
         unsigned char proc_img[][84] PROGMEM;
         unsigned char working_img[][84] PROGMEM;
 };

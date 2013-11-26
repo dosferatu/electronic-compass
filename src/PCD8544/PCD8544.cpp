@@ -1,4 +1,7 @@
+#include <stdlib.h>
 #include "PCD8544.h"
+
+using namespace std;
 
 PCD8544::PCD8544()
 {
@@ -16,6 +19,10 @@ void PCD8544::InitPCD8544()
   PORTF = LCD_RST_LO;
   PORTF = LCD_RST_HI;
 
+  // Assert the chip enable of the LCD
+  DDRF = LCD_SCE;       
+  PORTF = LCD_SCE_LO;
+
   // Initiate ATMega32U4 as a master on the SPI bus
   // Set MOSI and SCK output, all others input
   DDRB = (1<<PB2)|(1<<PB1);
@@ -27,10 +34,19 @@ void PCD8544::InitPCD8544()
    //instruction set.
   SendCommand(0x23);
   
+  // Set Vop to (a + 16 * b)
   /* CHANGE THIS TO SUIT OUR MUX RATE */
   /* NEED TO SET [BS2:BS0] TO CORRECT BIAS FOR MUX RATE */
-  // Set Vop to (a + 16 * b)
-  SendCommand(0x90);
+  // Taken from SparkFun arduino sketch
+  SendCommand(0xB1);
+
+  // Set temp coefficient
+  // Taken from SparkFun arduino sketch
+  SendCommand(0x04);
+
+  // LCD Bias
+  // Taken from SparkFun arduino sketch
+  SendCommand(0x14);
   
   // Set to normal instruction set
   SendCommand(0x22);
@@ -44,18 +60,21 @@ void PCD8544::ClearDisplay()
 {
   // Write 0's to all 84 columns
   for (int i = 0; i < LCD_WIDTH; ++i)
-    WriteDisplay(0);
+    WriteDisplay(0x00);
 }
 
 void PCD8544::DisplayHeading(int headingValue)
 {
   // Take in the heading value and map it to the appropriate image to display
+  char headingArray[3];
+
+  itoa(headingValue, headingArray, 10);
+
+  DisplayString(headingArray);
 }
 
 void PCD8544::WriteDisplay(uint8_t column)
 {
-  DDRF = LCD_SCE;       // Set SCE# low
-  PORTF = LCD_SCE_LO;
   DDRF = LCD_DC;        // Set PCD8544 to data input
   PORTF = LCD_DC_HI;
 
@@ -85,8 +104,6 @@ void PCD8544::ConvertImage()
 
 void PCD8544::SendCommand(uint8_t command)
 {
-  DDRF = LCD_SCE;       // Set SCE# low
-  PORTF = LCD_SCE_LO;
   DDRF = LCD_DC;        // Set PCD8544 to command input
   PORTF = LCD_DC_LO;
   
@@ -97,4 +114,22 @@ void PCD8544::SendCommand(uint8_t command)
   while (!(SPSR & (1<<SPIF)));
   
   return;
+}
+
+void PCD8544::DisplayString(char *characters)
+{
+  while (*characters)
+  {
+    DisplayCharacter(*characters++);
+  }
+}
+
+void PCD8544::DisplayCharacter(char character)
+{
+  WriteDisplay(0x00);
+  for (int index = 0; index < 5; index++)
+  {
+      WriteDisplay(ASCII[character - 0x20][index]);
+    }
+  WriteDisplay(0x00);
 }
