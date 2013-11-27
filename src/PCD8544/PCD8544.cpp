@@ -20,6 +20,7 @@ void PCD8544::InitPCD8544()
   PORTF = LCD_RST_HI;
 
   // Assert the chip enable of the LCD
+  // GET RID OF THIS SINCE TIED LOW IN DESIGN
   DDRF = LCD_SCE;       
   PORTF = LCD_SCE_LO;
 

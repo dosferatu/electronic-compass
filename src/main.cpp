@@ -33,11 +33,11 @@ int main()
   DDRB |= (1<<PB6);
   PORTB |= (1<<PB6);
 
-  // Initialize the Nokia 5110
-  display.InitPCD8544();
-
   // Initialize the LSM303
   compass.InitLSM303DLH();
+
+  // Initialize the Nokia 5110
+  display.InitPCD8544();
 
   while(true)
   {
