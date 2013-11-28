@@ -45,7 +45,7 @@ int main()
 
     display.DisplayHeading(headingValue);
     //compass.BlinkLED(headingValue / 10);
-    _delay_ms(1);
+    _delay_ms(100);
   }
 
   return 0;

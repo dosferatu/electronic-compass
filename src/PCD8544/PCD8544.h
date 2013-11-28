@@ -20,8 +20,7 @@
  */
 
 #include <avr/io.h>
-#include <avr/pgmspace.h>
-#include "image_parts.h"
+#include <inttypes.h>
 
 #define LCD_SCE                     PORTF |= (1<<PF4)
 #define LCD_SCE_HI		    PORTF |= (1<<PF4)
@@ -46,34 +45,24 @@
 #define LCD_WIDTH	        84
 #define LCD_HEIGHT	        48
 
-/*
- * This structure is used by the system to setup an array of coordinate pairs
- * for appropriate changes
- */
-struct coordinate_pair
-{
-    int x;
-    int y;
-};
+#define UI_LETTERS_X            7
+#define UI_LETTERS_Y            2
 
 class PCD8544
 {
     public:
         PCD8544();
         ~PCD8544();
-        void InitPCD8544();
         void ClearDisplay();
         void ConvertImage();
-        void DisplayHeading(int);
-        //void EditImage(unsigned char new_img, coordinate_pair coords);
-        //void LoadImage(unsigned char base_img);
-        void SendCommand(uint8_t);
-        void WriteDisplay(uint8_t);
+        void DisplayHeading(const int);
+        void InitPCD8544();
+        void SendCommand(const uint8_t);
+        void WriteColumn(const uint8_t);
 
     private:
-        // Temporary functions to print string to LCD
-        void DisplayCharacter(char);
-        void DisplayString(char*);
-        unsigned char proc_img[][84] PROGMEM;
-        unsigned char working_img[][84] PROGMEM;
+        void DisplayImage(const uint8_t [][6]);
+        void UpdateLetters(const int);
+        void UpdateNumbers(const int);
+        void UpdateCompass(const int);
 };
