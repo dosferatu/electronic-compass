@@ -15,8 +15,8 @@ PCD8544::~PCD8544()
 // Function to clear the display
 void PCD8544::ClearDisplay()
 {
-  // Write 0's to all 84 columns
-  for (int i = 0; i < LCD_WIDTH; ++i)
+  // Write 0's to all 6 blocks in all 84 columns
+  for (int i = 0; i < (LCD_WIDTH * 6); ++i)
     WriteColumn(0x00);
 
   return;
@@ -25,28 +25,16 @@ void PCD8544::ClearDisplay()
 // Uses the given heading to update the UI accordingly
 void PCD8544::DisplayHeading(const int headingValue)
 {
-  DisplayImage(compassUI);
+  ClearDisplay();
 
-  /*
-   * Clear the letters field:
-   * Width is 20px (9px for both letters  + 2px spacing
-   * Height is 16px
-   */
   // Ensure the X address is reset
   SendCommand(0x80);
 
   // Ensure the Y address is reset
   SendCommand(0x40);
 
-  // Clear the first 30 columns
-  for (int i = 0; i < 30; ++i)
-    for (int j = 0; i < 6; ++i)
-      WriteColumn(0x00);
-
-  // Update all subcomponents of the UI
   UpdateLetters(headingValue);
   UpdateNumbers(headingValue);
-  UpdateCompass(headingValue);
 
   return;
 }
@@ -109,7 +97,6 @@ void PCD8544::InitPCD8544()
 
   // Set compass UI to default state
   ClearDisplay();
-  DisplayImage(compassUI);
 
   return;
 }
@@ -135,7 +122,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(N[i][j]);
@@ -149,7 +136,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
       
       for (int j = 1; j > -1; --j)
         WriteColumn(N[i][j]);
@@ -160,7 +147,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(E[i][j]);
@@ -173,7 +160,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(E[i][j]);
@@ -187,7 +174,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
@@ -198,7 +185,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(E[i][j]);
@@ -211,7 +198,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
@@ -225,7 +212,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
@@ -236,7 +223,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(W[i][j]);
@@ -249,7 +236,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(W[i][j]);
@@ -263,7 +250,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
@@ -274,7 +261,7 @@ void PCD8544::UpdateLetters(const int headingValue)
     {
       // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
-      SendCommand(0x40);
+      SendCommand(0x40 | UI_LETTERS_Y);
 
       for (int j = 1; j > -1; --j)
         WriteColumn(W[i][j]);
@@ -286,6 +273,36 @@ void PCD8544::UpdateLetters(const int headingValue)
 
 void PCD8544::UpdateNumbers(const int headingValue)
 {
+  int hundreds = (headingValue / 100);
+  int tens = (headingValue - (hundreds * 100)) / 10;
+  int ones = (headingValue % 10);
+
+  switch(hundreds)
+  {
+    case 0:
+
+    case 1:
+
+    case 2:
+
+    case 3:
+
+    default:
+      break;
+  }
+
+  switch(tens)
+  {
+    default:
+      break;
+  }
+
+  switch(ones)
+  {
+    default:
+      break;
+  }
+
   return;
 }
 

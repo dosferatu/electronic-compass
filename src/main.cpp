@@ -39,7 +39,6 @@ int main()
 
   while(true)
   {
-    _delay_ms(10);
     display.DisplayHeading(compass.ReadHeading());
   }
 

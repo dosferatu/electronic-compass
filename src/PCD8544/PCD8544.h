@@ -45,8 +45,10 @@
 #define LCD_WIDTH	        84
 #define LCD_HEIGHT	        48
 
-#define UI_LETTERS_X            7
+#define UI_LETTERS_X            10
 #define UI_LETTERS_Y            2
+#define UI_NUMBERS_X            40
+#define UI_NUMBERS_Y            2
 
 class PCD8544
 {
