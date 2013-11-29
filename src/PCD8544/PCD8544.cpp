@@ -44,17 +44,18 @@ void PCD8544::DisplayHeading(const int headingValue)
       WriteColumn(0x00);
 
   // Update all subcomponents of the UI
-  //UpdateLetters(headingValue);
-  //UpdateNumbers(headingValue);
-  //UpdateCompass(headingValue);
+  UpdateLetters(headingValue);
+  UpdateNumbers(headingValue);
+  UpdateCompass(headingValue);
 
   return;
 }
 
 void PCD8544::DisplayImage(const uint8_t image[][6])
 {
-  // Set the X address of the PCD8544 RAM to 0x0
+  // Reset the X & Y address
   SendCommand(0x80);
+  SendCommand(0x40);
 
   for (int i = 0; i < LCD_WIDTH; ++i)
     for(int j = 5; j > -1; --j)
@@ -132,10 +133,11 @@ void PCD8544::UpdateLetters(const int headingValue)
   if (headingValue >= 340 && headingValue <= 20)
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
-    SendCommand(0x80 | (UI_LETTERS_X + i));
+      // Increment X, reset Y addresses
+      SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(N[i][j]);
     }
 
@@ -145,32 +147,35 @@ void PCD8544::UpdateLetters(const int headingValue)
     // The 'N'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
       
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(N[i][j]);
     }
 
     // The 'E'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(E[i][j]);
     }
   }
 
-    // Display East
+  // Display East
   else if(headingValue >= 70 && headingValue <= 110)
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(E[i][j]);
     }
 
@@ -180,20 +185,22 @@ void PCD8544::UpdateLetters(const int headingValue)
     // The 'S'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
     }
-
+    
     // The 'E'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(E[i][j]);
     }
   }
@@ -202,10 +209,11 @@ void PCD8544::UpdateLetters(const int headingValue)
   else if(headingValue >= 160 && headingValue <= 200)
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
     }
 
@@ -215,32 +223,35 @@ void PCD8544::UpdateLetters(const int headingValue)
     // The 'S'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(S[i][j]);
     }
 
     // The 'W'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(W[i][j]);
     }
   }
-
+  
   // Display West
   else if(headingValue >= 250 && headingValue <= 290)
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(W[i][j]);
     }
 
@@ -250,24 +261,26 @@ void PCD8544::UpdateLetters(const int headingValue)
     // The 'S'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
-        WriteColumn(N[i][j]);
+      for (int j = 1; j > -1; --j)
+        WriteColumn(S[i][j]);
     }
 
     // The 'W'
     for (int i = 0; i < 9; ++i)
     {
-      // Increment the X address
+      // Increment X, reset Y addresses
       SendCommand(0x80 | (UI_LETTERS_X + i + 10));
+      SendCommand(0x40);
 
-      for (int j = 0; j < 2; ++j)
+      for (int j = 1; j > -1; --j)
         WriteColumn(W[i][j]);
     }
   }
-    
+
   return;
 }
 

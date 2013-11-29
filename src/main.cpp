@@ -33,19 +33,14 @@ int main()
   DDRB |= (1<<PB6);
   PORTB |= (1<<PB6);
 
-  // Initialize the LSM303
+  // Initialize the LSM303 and the Nokia5110
   compass.InitLSM303DLH();
-
-  // Initialize the Nokia 5110
   display.InitPCD8544();
 
   while(true)
   {
-    headingValue = compass.ReadHeading();
-
-    display.DisplayHeading(headingValue);
-    //compass.BlinkLED(headingValue / 10);
-    _delay_ms(100);
+    _delay_ms(10);
+    display.DisplayHeading(compass.ReadHeading());
   }
 
   return 0;
