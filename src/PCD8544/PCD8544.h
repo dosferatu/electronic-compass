@@ -64,6 +64,7 @@ class PCD8544
 
     private:
         void DisplayImage(const uint8_t [][6]);
+        void PrintDigit(const int, const int);
         void UpdateLetters(const int);
         void UpdateNumbers(const int);
         void UpdateCompass(const int);

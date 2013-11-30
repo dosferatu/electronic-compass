@@ -38,9 +38,7 @@ int main()
   display.InitPCD8544();
 
   while(true)
-  {
     display.DisplayHeading(compass.ReadHeading());
-  }
 
   return 0;
 }
