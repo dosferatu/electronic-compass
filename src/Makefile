@@ -25,8 +25,11 @@
 #
 # make extcoff = Convert ELF to AVR Extended COFF.
 #
-# make program = Download the hex file to the device, using avrdude.
+# make program-avr = Download the hex file to the device, using avrdude.
 #                Please customize the avrdude settings below first!
+#
+# make program-dfu = Download the hex file to the device, using dfu-programmer.
+#                Please customize the dfu-programmer settings below first!
 #
 # make debug = Start either simulavr or avarice as specified for debugging, 
 #              with avr-gdb or avr-insight as the front end for debugging.
@@ -304,6 +307,16 @@ AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
 
 
 
+#---------------- Programming Options (avrdude) ----------------
+
+# Use the dfu-programmer for Atmel supplied usb bootloaders
+DFU_PROGRAMMER = dfu-programmer $(MCU)
+DFU_PROGRAMMER_ERASE = erase
+DFU_PROGRAMMER_WRITE_FLASH = flash $(TARGET).hex
+#DFU_PROGRAMMER_WRITE_EEPROM = flash-eeprom $(TARGET).hex
+
+
+
 #---------------- Debugging Options ----------------
 
 # For simulavr only - target MCU frequency.
@@ -445,9 +458,15 @@ gccversion :
 
 
 
-# Program the device.  
-program: $(TARGET).hex $(TARGET).eep
+# Program the device using avrdude.  
+program-avr: $(TARGET).hex $(TARGET).eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+
+
+# Program the device using dfu-programmer.
+program-dfu: $(TARGET).hex $(TARGET).eep
+	$(DFU_PROGRAMMER) $(DFU_PROGRAMMER_ERASE)
+	$(DFU_PROGRAMMER) $(DFU_PROGRAMMER_WRITE_FLASH)
 
 
 # Generate avr-gdb config/init file which does the following:
