@@ -24,18 +24,6 @@ int main()
   PORTD = 0xFF;
   PORTF = 0x00;
 
-
-  // Normal power, all axes enabled
-  int headingValue = 0x00;
-
-  // Set PD4 as an output low for the debug LED
-  DDRD |= (1<<PD4);
-  PORTD |= ~(1<<PD4); // what is this doing?
-
-  // Set PB0 (SS) as an output LOW to turn on LCD and Mag/Acc
-  DDRB |= (1<<PB0);
-  PORTB |= (1<<PB0);
-
   // Set PB0 (SS) as an output HIGH
   DDRB |= (1<<PB0);
   PORTB |= (1<<PB0);
