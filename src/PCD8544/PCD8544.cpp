@@ -35,6 +35,7 @@ void PCD8544::DisplayHeading(const int headingValue)
 
   UpdateLetters(headingValue);
   UpdateNumbers(headingValue);
+  DisplayImage(sample);
 
   return;
 }
@@ -57,22 +58,17 @@ void PCD8544::DisplayImage(const uint8_t image[][6])
 void PCD8544::InitPCD8544()
 {
   // Pulse reset low to reset internal registers
-  DDRF = LCD_RST;
-  PORTF = LCD_RST_LO;
+  DDRB = LCD_RST;
+  PORTB = LCD_RST_LO;
   _delay_ms(100);
-  PORTF = LCD_RST_HI;
+  PORTB = LCD_RST_HI;
 
   // Enable the Data/Command# output
-  DDRF = LCD_DC;        
-
-  // Assert the chip enable of the LCD
-  // GET RID OF THIS SINCE TIED LOW IN DESIGN
-  DDRF = LCD_SCE;       
-  PORTF = LCD_SCE_LO;
+  DDRB = LCD_DC;        
 
   // Initiate ATMega32U4 as a master on the SPI bus
   // Set MOSI and SCK output, all others input
-  DDRB = (1<<PB2)|(1<<PB1);
+  DDRB |= (1<<PB2)|(1<<PB1);
 
   // Enable SPI, Master, set clock rate fck/16 for 1MHz
   SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
@@ -248,7 +244,7 @@ void PCD8544::PrintDigit(const int number, const int startingColumn)
 // Send a command to the PCD8544
 void PCD8544::SendCommand(const uint8_t command)
 {
-  PORTF = LCD_DC_LO;  // Set PCD8544 to command input
+  PORTB = LCD_DC_LO;  // Set PCD8544 to command input
 
   // Start transmission
   SPDR = command;
@@ -263,7 +259,7 @@ void PCD8544::SendCommand(const uint8_t command)
 void PCD8544::UpdateLetters(const int headingValue)
 {
   // Display North
-  if (headingValue >= 340 && headingValue < 360 || headingValue > 0 && headingValue <= 20)
+  if ((headingValue >= 340 && headingValue < 360) || (headingValue > 0 && headingValue <= 20))
     for (int i = 0; i < 9; ++i)
     {
       // Increment X, reset Y addresses
@@ -435,7 +431,7 @@ void PCD8544::UpdateNumbers(const int headingValue)
 // For vertical addressing in the PCD8544; write to a Y block
 void PCD8544::WriteColumn(const uint8_t column)
 {
-  PORTF = LCD_DC_HI;  // Set PCD8544 to data input
+  PORTB = LCD_DC_HI;  // Set PCD8544 to data input
 
   // Start transmission
   SPDR = column;
@@ -443,5 +439,19 @@ void PCD8544::WriteColumn(const uint8_t column)
   // Wait for transmission to complete
   while (!(SPSR & (1<<SPIF)));
 
+  return;
+}
+
+void PCD8544::BlinkDisplay(int count)
+{
+  for (int i = 0; i < count; ++i)
+  {
+    PORTB = LCD_BACKLIGHT_HI;
+    _delay_ms(5);
+
+    PORTB = LCD_BACKLIGHT_LO;
+    _delay_ms(5);
+  }
+  _delay_ms(100);
   return;
 }

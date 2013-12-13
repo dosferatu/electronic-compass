@@ -21,8 +21,13 @@ void LSM303DLH::InitLSM303DLH()
 {
   // Enable the TWI
   // Set the baud rate to 400KHz (fast mode)
-  TWBR = TWI_TWBR;                          // Set the bit rate register for 400KHz
+  //TWBR = TWI_TWBR;                          // Set the bit rate register for 400KHz
           
+  // Disable everything
+  TWCR =  (0<<TWEN)|                        // TWI enabled
+          (0<<TWIE)|(1<<TWINT)|             // Disable interrupts and clear flag
+          (0<<TWEA)|(0<<TWSTA)|(0<<TWSTO)|  // Initiate a START condition
+          (0<<TWWC);
   /*
    * We wish to write one byte (0x27) to the accel config register
    *
@@ -542,12 +547,12 @@ void LSM303DLH::BlinkLED(int count)
 {
   for (int i = 0; i < count; ++i)
   {
-    PORTD = 0x10;
-    _delay_ms(100);
+    PORTB = PORTB |= (1<<PB6);
+    _delay_ms(50);
 
-    PORTD = 0x00;
-    _delay_ms(100);
+    PORTB = PORTB &= ~(1<<PB6);
+    _delay_ms(50);
   }
-  _delay_ms(1000);
+  _delay_ms(100);
   return;
 }
