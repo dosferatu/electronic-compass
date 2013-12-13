@@ -23,13 +23,13 @@ int main()
 
   // Set PD4 as an output low for the debug LED
   DDRD |= (1<<PD4);
-  PORTD |= ~(1<<PD4);
+  PORTD |= ~(1<<PD4); // what is this doing?
 
-  // Set PB0 (SS) as an output HIGH
+  // Set PB0 (SS) as an output LOW to turn on LCD and Mag/Acc
   DDRB |= (1<<PB0);
   PORTB |= (1<<PB0);
 
-  // Power on the compass and the display
+  // Power on the the backlight
   DDRB |= (1<<PB6);
   PORTB |= (1<<PB6);
 
