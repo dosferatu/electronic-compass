@@ -15,30 +15,34 @@
 
 int main()
 {
+  // Initialize all unused GPIO pins to output LOW
+  DDRD = 0xFF;
+  DDRF = 0xFF;
+  PORTD = 0x00;
+  PORTF = 0x00;
+  
   PCD8544 display;
   LSM303DLH compass;
-
-  // Normal power, all axes enabled
-  int headingValue = 0x00;
-
-  // Set PD4 as an output low for the debug LED
-  DDRD |= (1<<PD4);
-  PORTD |= ~(1<<PD4);
 
   // Set PB0 (SS) as an output HIGH
   DDRB |= (1<<PB0);
   PORTB |= (1<<PB0);
 
-  // Power on the compass and the display
+  //Power on the display backlight
   DDRB |= (1<<PB6);
   PORTB |= (1<<PB6);
 
-  // Initialize the LSM303 and the Nokia5110
+  //Initialize the LSM303 and the Nokia5110
   compass.InitLSM303DLH();
   display.InitPCD8544();
 
   while(true)
+  {
+    //display.BlinkDisplay(compass.ReadHeading());
+    //display.BlinkDisplay(3);
     display.DisplayHeading(compass.ReadHeading());
+    //display.DisplayHeading(0);
+  }
 
   return 0;
 }

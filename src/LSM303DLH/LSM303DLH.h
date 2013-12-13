@@ -191,13 +191,11 @@ class LSM303DLH
     void InitLSM303DLH();
     int ReadHeading();
     
-    // For debugging
-    void BlinkLED(int);
-
   private:
     // Vector calculations used in the ReadHeading() function
     float VectorDot(const vector*, const vector*);
     void VectorCross(const vector*, const vector*, vector*);
     void VectorNormalize(vector*);
+    void BlinkLED(int);
 };
 #endif
