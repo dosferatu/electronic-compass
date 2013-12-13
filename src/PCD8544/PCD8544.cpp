@@ -35,7 +35,7 @@ void PCD8544::DisplayHeading(const int headingValue)
 
   UpdateLetters(headingValue);
   UpdateNumbers(headingValue);
-  DisplayImage(sample);
+  //DisplayImage(sample);
 
   return;
 }
