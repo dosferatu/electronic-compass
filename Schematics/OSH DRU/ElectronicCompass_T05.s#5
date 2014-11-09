@@ -14597,6 +14597,7 @@ Group Members:
 <pinref part="U$1" gate="G$1" pin="OUT"/>
 <pinref part="S3" gate="1" pin="1"/>
 <wire x1="88.9" y1="68.58" x2="99.06" y2="68.58" width="0.1524" layer="91"/>
+<junction x="88.9" y="68.58"/>
 </segment>
 </net>
 <net name="N$37" class="0">

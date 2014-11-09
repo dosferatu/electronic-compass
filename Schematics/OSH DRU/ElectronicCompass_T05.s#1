@@ -13703,7 +13703,7 @@ Mors</description>
 <part name="S3" library="switch-dil" deviceset="DS01E" device="" value="Off/On"/>
 <part name="R12" library="rcl" deviceset="R-US_" device="M0805" value="1k"/>
 <part name="R13" library="resistor" deviceset="R-US_" device="M0805" value="1k"/>
-<part name="U$1" library="LTC4067" deviceset="LTC4067" device=""/>
+<part name="U2" library="LTC4067" deviceset="LTC4067" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -13975,7 +13975,7 @@ Group Members:
 <attribute name="NAME" x="173.7614" y="-57.15" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="178.562" y="-57.15" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="U$1" gate="G$1" x="50.8" y="50.8" rot="R270"/>
+<instance part="U2" gate="G$1" x="50.8" y="50.8" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -14080,7 +14080,7 @@ Group Members:
 <segment>
 <pinref part="GND9" gate="1" pin="GND"/>
 <wire x1="50.8" y1="7.62" x2="50.8" y2="15.24" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND"/>
+<pinref part="U2" gate="G$1" pin="GND"/>
 <wire x1="50.8" y1="15.24" x2="50.8" y2="17.78" width="0.1524" layer="91"/>
 <junction x="50.8" y="15.24"/>
 </segment>
@@ -14092,8 +14092,8 @@ Group Members:
 <wire x1="30.48" y1="30.48" x2="22.86" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="33.02" y1="30.48" x2="30.48" y2="30.48" width="0.1524" layer="91"/>
 <junction x="30.48" y="30.48"/>
-<pinref part="U$1" gate="G$1" pin="ILIM1"/>
-<pinref part="U$1" gate="G$1" pin="ILIM0"/>
+<pinref part="U2" gate="G$1" pin="ILIM1"/>
+<pinref part="U2" gate="G$1" pin="ILIM0"/>
 </segment>
 <segment>
 <wire x1="33.02" y1="40.64" x2="30.48" y2="40.64" width="0.1524" layer="91"/>
@@ -14104,7 +14104,7 @@ Group Members:
 <wire x1="15.24" y1="43.18" x2="15.24" y2="7.62" width="0.1524" layer="91"/>
 <pinref part="C5" gate="G$1" pin="2"/>
 <junction x="22.86" y="43.18"/>
-<pinref part="U$1" gate="G$1" pin="NTC"/>
+<pinref part="U2" gate="G$1" pin="NTC"/>
 </segment>
 <segment>
 <pinref part="R9" gate="G$1" pin="1"/>
@@ -14510,7 +14510,7 @@ Group Members:
 <wire x1="30.48" y1="53.34" x2="30.48" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="30.48" y1="50.8" x2="22.86" y2="50.8" width="0.1524" layer="91"/>
 <junction x="22.86" y="50.8"/>
-<pinref part="U$1" gate="G$1" pin="IN"/>
+<pinref part="U2" gate="G$1" pin="IN"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -14520,7 +14520,7 @@ Group Members:
 <pinref part="C2" gate="G$1" pin="2"/>
 <junction x="10.16" y="68.58"/>
 <pinref part="Q1" gate="G$1" pin="G"/>
-<pinref part="U$1" gate="G$1" pin="OVP"/>
+<pinref part="U2" gate="G$1" pin="OVP"/>
 </segment>
 </net>
 <net name="VBUS" class="0">
@@ -14556,7 +14556,7 @@ Group Members:
 <wire x1="76.2" y1="-17.78" x2="76.2" y2="-15.24" width="0.1524" layer="91"/>
 <junction x="76.2" y="-15.24"/>
 <junction x="0" y="-15.24"/>
-<pinref part="U$1" gate="G$1" pin="OVI"/>
+<pinref part="U2" gate="G$1" pin="OVI"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -14569,7 +14569,7 @@ Group Members:
 <pinref part="JP4" gate="G$1" pin="1"/>
 <wire x1="78.74" y1="27.94" x2="83.82" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="43.18" x2="78.74" y2="43.18" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="BAT"/>
+<pinref part="U2" gate="G$1" pin="BAT"/>
 </segment>
 </net>
 <net name="N$36" class="0">
@@ -14586,7 +14586,7 @@ Group Members:
 <wire x1="88.9" y1="73.66" x2="96.52" y2="73.66" width="0.1524" layer="91"/>
 <junction x="88.9" y="73.66"/>
 <wire x1="68.58" y1="73.66" x2="78.74" y2="73.66" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="OUT"/>
+<pinref part="U2" gate="G$1" pin="OUT"/>
 </segment>
 </net>
 <net name="N$37" class="0">
@@ -14666,7 +14666,7 @@ Group Members:
 <pinref part="R6" gate="G$1" pin="1"/>
 <wire x1="68.58" y1="27.94" x2="71.12" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="27.94" x2="71.12" y2="20.32" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="PROG"/>
+<pinref part="U2" gate="G$1" pin="PROG"/>
 </segment>
 </net>
 <net name="N$38" class="0">
@@ -14725,14 +14725,14 @@ Group Members:
 <wire x1="33.02" y1="25.4" x2="30.48" y2="25.4" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="2"/>
 <wire x1="30.48" y1="20.32" x2="30.48" y2="25.4" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="CLPROG"/>
+<pinref part="U2" gate="G$1" pin="CLPROG"/>
 </segment>
 </net>
 <net name="N$46" class="0">
 <segment>
 <pinref part="Q2" gate="G$1" pin="G"/>
 <wire x1="68.58" y1="58.42" x2="73.66" y2="58.42" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GATE"/>
+<pinref part="U2" gate="G$1" pin="GATE"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -14768,7 +14768,7 @@ Group Members:
 <net name="N$7" class="0">
 <segment>
 <pinref part="R5" gate="G$1" pin="2"/>
-<pinref part="U$1" gate="G$1" pin="CHARGE"/>
+<pinref part="U2" gate="G$1" pin="CHARGE"/>
 </segment>
 </net>
 </nets>

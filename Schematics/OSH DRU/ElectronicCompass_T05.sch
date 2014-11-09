@@ -13684,7 +13684,6 @@ Mors</description>
 <part name="C6" library="SparkFun" deviceset="CAP" device="0402-CAP" value="18pF"/>
 <part name="GND3" library="SparkFun" deviceset="GND" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="C7" library="rcl" deviceset="C-US" device="C0805" value="0.1uF"/>
 <part name="R7" library="resistor" deviceset="R-US_" device="M0805" value="1M"/>
 <part name="R9" library="resistor" deviceset="R-US_" device="M0805" value="1k"/>
 <part name="R10" library="resistor" deviceset="R-US_" device="M0805" value="1M"/>
@@ -13939,7 +13938,6 @@ Group Members:
 </instance>
 <instance part="GND3" gate="1" x="96.52" y="-30.48"/>
 <instance part="GND6" gate="1" x="22.86" y="5.08"/>
-<instance part="C7" gate="G$1" x="96.52" y="7.62"/>
 <instance part="R7" gate="G$1" x="187.96" y="-53.34" smashed="yes">
 <attribute name="NAME" x="184.15" y="-51.8414" size="1.778" layer="95"/>
 <attribute name="VALUE" x="184.15" y="-56.642" size="1.778" layer="96"/>
@@ -14141,10 +14139,6 @@ Group Members:
 <wire x1="187.96" y1="-30.48" x2="187.96" y2="-33.02" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="C7" gate="G$1" pin="2"/>
-<pinref part="GND22" gate="1" pin="GND"/>
-</segment>
-<segment>
 <wire x1="81.28" y1="-58.42" x2="81.28" y2="-66.04" width="0.1524" layer="91"/>
 <pinref part="GND23" gate="1" pin="GND"/>
 <pinref part="S2" gate="1" pin="1"/>
@@ -14187,7 +14181,6 @@ Group Members:
 <segment>
 <wire x1="127" y1="20.32" x2="124.46" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="127" y1="17.78" x2="124.46" y2="17.78" width="0.1524" layer="91"/>
-<wire x1="124.46" y1="17.78" x2="124.46" y2="20.32" width="0.1524" layer="91"/>
 <wire x1="127" y1="15.24" x2="124.46" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="124.46" y1="15.24" x2="124.46" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="127" y1="12.7" x2="124.46" y2="12.7" width="0.1524" layer="91"/>
@@ -14200,7 +14193,6 @@ Group Members:
 <pinref part="U1" gate="G$1" pin="AVCC@44"/>
 <pinref part="P+2" gate="1" pin="VCC"/>
 <wire x1="124.46" y1="45.72" x2="124.46" y2="20.32" width="0.1524" layer="91"/>
-<pinref part="C7" gate="G$1" pin="1"/>
 <wire x1="124.46" y1="20.32" x2="124.46" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="124.46" y1="15.24" x2="96.52" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="96.52" y1="15.24" x2="96.52" y2="10.16" width="0.1524" layer="91"/>
